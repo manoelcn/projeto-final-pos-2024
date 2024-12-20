@@ -25,7 +25,7 @@ const Inflows = () => {
             <h1>Lista de entradas</h1>
             <ul>
                 {inflows.map((inflow) => (
-                    <li key={inflow.id}>{inflow.name}</li>
+                    <li key={inflow.id}>{inflow.description}</li>
                 ))}
             </ul>
         </div>

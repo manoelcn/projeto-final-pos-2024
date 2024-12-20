@@ -25,7 +25,7 @@ const Outflows = () => {
             <h1>Lista de saídas</h1>
             <ul>
                 {outflows.map((outflow) => (
-                    <li key={outflow.id}>{outflow.name}</li>
+                    <li key={outflow.id}>{outflow.description}</li>
                 ))}
             </ul>
         </div>
