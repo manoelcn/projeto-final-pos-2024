@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Index from './pages/Index';
 import Brands from './pages/Brands';
 import Categories from './pages/Categories';
+import Inflows from './pages/Inflows';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path='/brands' element={<Brands />} />
             <Route path='/categories' element={<Categories />} />
+            <Route path='/inflows' element={<Inflows />} />
           </Routes>
         </div>
       </Router>
