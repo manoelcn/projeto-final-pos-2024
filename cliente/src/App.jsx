@@ -3,6 +3,7 @@ import Index from './pages/Index';
 import Brands from './pages/Brands';
 import Categories from './pages/Categories';
 import Inflows from './pages/Inflows';
+import Outflows from './pages/Outflows';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -18,6 +19,7 @@ function App() {
             <Route path='/brands' element={<Brands />} />
             <Route path='/categories' element={<Categories />} />
             <Route path='/inflows' element={<Inflows />} />
+            <Route path='/outflows' element={<Outflows />} />
           </Routes>
         </div>
       </Router>
