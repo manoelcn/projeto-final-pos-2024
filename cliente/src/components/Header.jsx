@@ -9,6 +9,7 @@ const Navbar = () => {
                 <a className="navbar-brand text-white" href="/categories">Categorias</a>
                 <a className="navbar-brand text-white" href="/inflows">Entradas</a>
                 <a className="navbar-brand text-white" href="/outflows">Saídas</a>
+                <a className="navbar-brand text-white" href="/products">Produtos</a>
             </div>
         </nav>
     );
