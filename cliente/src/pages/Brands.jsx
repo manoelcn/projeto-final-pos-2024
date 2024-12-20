@@ -25,7 +25,7 @@ const Brands = () => {
 
     return (
         <div>
-            <h1>Lista de Brands</h1>
+            <h1>Lista de marcas</h1>
             <ul>
                 {/* Renderiza as brands na tela */}
                 {brands.map((brand) => (
