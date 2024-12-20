@@ -5,6 +5,7 @@ import Categories from './pages/Categories';
 import Inflows from './pages/Inflows';
 import Outflows from './pages/Outflows';
 import Products from './pages/Products';
+import Suppliers from './pages/Suppliers';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -22,6 +23,7 @@ function App() {
             <Route path='/inflows' element={<Inflows />} />
             <Route path='/outflows' element={<Outflows />} />
             <Route path='/products' element={<Products />} />
+            <Route path='/suppliers' element={<Suppliers />} />
           </Routes>
         </div>
       </Router>
