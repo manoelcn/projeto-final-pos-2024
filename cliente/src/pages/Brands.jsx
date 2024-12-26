@@ -24,14 +24,37 @@ const Brands = () => {
     }
 
     return (
-        <div>
-            <h1>Lista de marcas</h1>
-            <ul>
-                {/* Renderiza as brands na tela */}
-                {brands.map((brand) => (
-                    <li key={brand.id}>{brand.name}</li>
-                ))}
-            </ul>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">
+                        Lista de marcas
+                    </h3>
+                    <table className="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {brands.map((brand) => (
+                                <tr key={brand.id}>
+                                    <td>{brand.id}</td>
+                                    <td>{brand.name}</td>
+                                    <td>{brand.description || "N/A"}</td>
+                                    <td>
+                                        <button className="btn btn-primary">Editar</button>
+                                        <button className="btn btn-danger">Excluir</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
