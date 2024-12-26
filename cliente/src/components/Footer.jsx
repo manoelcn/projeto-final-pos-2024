@@ -1,13 +1,16 @@
-import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
-const Footer = () => {
-    return (
-        <footer className="footer mt-auto py-3 text-center">
-            <div className="container">
-                <span className="text-muted">© 2024 StockSimplify</span>
-            </div>
-        </footer>
-    );
-};
+
+function Footer() {
+  return (
+    <Navbar expand="lg" bg="dark" data-bs-theme="dark" fixed="bottom">
+      <Container className="d-flex justify-content-center">
+        <Navbar.Text className="text-white">Stock-Simplify</Navbar.Text>
+      </Container>
+    </Navbar>
+  );
+}
+
 
 export default Footer;
