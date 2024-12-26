@@ -1,19 +1,29 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Navbar = () => {
+
+const Menu = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-            <div className="container-fluid">
-                <a className="navbar-brand text-white" href="/">StockSimplify</a>
-                <a className="navbar-brand text-white" href="/brands">Marcas</a>
-                <a className="navbar-brand text-white" href="/categories">Categorias</a>
-                <a className="navbar-brand text-white" href="/inflows">Entradas</a>
-                <a className="navbar-brand text-white" href="/outflows">Saídas</a>
-                <a className="navbar-brand text-white" href="/products">Produtos</a>
-                <a className="navbar-brand text-white" href="/suppliers">Fornecedores</a>
-            </div>
-        </nav>
+        <Navbar expand="lg" className="bg-body-tertiary">
+            <Container>
+                <Navbar.Brand href="/">Stock-Simplify</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/brands">Marcas</Nav.Link>
+                        <Nav.Link href="/categories">Categorias</Nav.Link>
+                        <Nav.Link href="/inflows">Entradas</Nav.Link>
+                        <Nav.Link href="/outflows">Saídas</Nav.Link>
+                        <Nav.Link href="/products">Produtos</Nav.Link>
+                        <Nav.Link href="/suppliers">Fornecedores</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 
-export default Navbar;
+export default Menu;

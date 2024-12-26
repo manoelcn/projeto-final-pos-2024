@@ -6,14 +6,14 @@ import Inflows from './pages/Inflows';
 import Outflows from './pages/Outflows';
 import Products from './pages/Products';
 import Suppliers from './pages/Suppliers';
-import Header from './components/Header';
+import Menu from './components/Header';
 import Footer from './components/Footer';
 
 function App() {
 
   return (
     <div>
-      <Header></Header>
+      <Menu></Menu>
       <Router>
         <div>
           <Routes>
