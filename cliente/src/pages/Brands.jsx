@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Table from 'react-bootstrap/Table';
 import brandService from "../services/brandsService"; // Importando o serviço de brands
 
 const Brands = () => {
@@ -26,126 +27,68 @@ const Brands = () => {
     return (
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        Marcas
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
-                    <form role="form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" />
-                            <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg></button>
-                        </div>
-                    </form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="name" placeholder="Nome" />
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="btn-group" role="group">
-
-                        <button class="btn btn-secondary" type="button">
-                            Left
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Center
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Right
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Justify
-                        </button>
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-primary float-end">
+                            <i class="bi bi-plus"></i>
+                            Cadastrar Marca
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-sm table-hover table-bordered">
+                    <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Product
-                                </th>
-                                <th>
-                                    Payment Taken
-                                </th>
-                                <th>
-                                    Status
-                                </th>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Default
-                                </td>
-                            </tr>
-                            <tr class="table-active">
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Approved
-                                </td>
-                            </tr>
-                            <tr class="table-success">
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    02/04/2012
-                                </td>
-                                <td>
-                                    Declined
-                                </td>
-                            </tr>
-                            <tr class="table-warning">
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    03/04/2012
-                                </td>
-                                <td>
-                                    Pending
-                                </td>
-                            </tr>
-                            <tr class="table-danger">
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    04/04/2012
-                                </td>
-                                <td>
-                                    Call in to confirm
-                                </td>
-                            </tr>
+                            {brands.length > 0 ? (
+                                brands.map((brand) => (
+                                    <tr key={brand.id}>
+                                        <td>{brand.id}</td>
+                                        <td>{brand.name}</td>
+                                        <td>{brand.description}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="3" style={{ textAlign: 'center' }}>
+                                        Nenhuma marca encontrada
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </div>
