@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from './components/Sidebar';
+import Header from './components/Header';
 import Brands from './pages/Brands';
 import Categories from './pages/Categories';
 import Index from './pages/Index';
@@ -12,7 +12,7 @@ import Suppliers from './pages/Suppliers';
 function App() {
   return (
     <div>
-      <Sidebar></Sidebar>
+      <Header></Header>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Index />} />
