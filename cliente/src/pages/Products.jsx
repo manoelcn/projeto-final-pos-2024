@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Table from 'react-bootstrap/Table';
 import productsService from '../services/productsService';
 
 const Products = () => {
@@ -23,127 +24,78 @@ const Products = () => {
     return (
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        Produtos
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
-                    <form role="form">
-                        <div class="form-group">
-
-                            <label for="exampleInputEmail1">
-                                Email address
-                            </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" />
-                        </div>
-                    </form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="name" placeholder="Nome" />
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="btn-group" role="group">
-
-                        <button class="btn btn-secondary" type="button">
-                            Left
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Center
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Right
-                        </button>
-                        <button class="btn btn-secondary" type="button">
-                            Justify
-                        </button>
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-primary float-end">
+                            <i class="bi bi-plus"></i>
+                            Cadastrar Produtos
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-sm table-hover table-bordered">
+                    <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Product
-                                </th>
-                                <th>
-                                    Payment Taken
-                                </th>
-                                <th>
-                                    Status
-                                </th>
+                                <th>Id</th>
+                                <th>Título</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th>Preço de Custo</th>
+                                <th>Preço de Venda</th>
+                                <th>Número de Série</th>
+                                <th>Quantidade</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Default
-                                </td>
-                            </tr>
-                            <tr class="table-active">
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Approved
-                                </td>
-                            </tr>
-                            <tr class="table-success">
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    02/04/2012
-                                </td>
-                                <td>
-                                    Declined
-                                </td>
-                            </tr>
-                            <tr class="table-warning">
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    03/04/2012
-                                </td>
-                                <td>
-                                    Pending
-                                </td>
-                            </tr>
-                            <tr class="table-danger">
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    04/04/2012
-                                </td>
-                                <td>
-                                    Call in to confirm
-                                </td>
-                            </tr>
+                            {products.length > 0 ? (
+                                products.map((product) => (
+                                    <tr key={product.id}>
+                                        <td>{product.id}</td>
+                                        <td>{product.title}</td>
+                                        <td>{product.brand}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.cost_price}</td>
+                                        <td>{product.selling_price}</td>
+                                        <td>{product.serie_number}</td>
+                                        <td>{product.quantity}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="4" style={{ textAlign: 'center' }}>
+                                        Nenhum produto encontrado
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </div>
