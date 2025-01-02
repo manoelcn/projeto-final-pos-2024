@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import categoriesService from '../services/categoriesService';
+import brandService from '../../services/brandsService'; // Importando o serviço de brands
 
-const Categories = () => {
-    const [categories, setCategories] = useState([]);
-    const [error, setError] = useState(null);
+const Brands = () => {
+    const [brands, setBrands] = useState([]);  // Estado para armazenar as brands
+    const [error, setError] = useState(null);   // Estado para armazenar erros, caso ocorra
 
+    // useEffect para fazer o GET quando o componente for montado
     useEffect(() => {
-        categoriesService
-            .listCategories()
+        // Chama o serviço para listar as brands
+        brandService
+            .listBrands()
             .then((data) => {
-                setCategories(data);
+                setBrands(data); // Atualiza o estado com as brands retornadas pela API
             })
             .catch((error) => {
-                setError(error.message);
+                setError(error.message); // Caso ocorra um erro, atualiza o estado de erro
             });
-    }, []);
+    }, []); // O array vazio significa que o useEffect será chamado apenas uma vez quando o componente for montado
 
+    // Exibe mensagem de erro, se houver
     if (error) {
-        return <p>Erro ao carregar as categorias: {error}</p>
+        return <p>Erro ao carregar as brands: {error}</p>;
     }
 
     return (
@@ -26,7 +29,7 @@ const Categories = () => {
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Categorias
+                        Marcas
                     </h3>
                 </div>
             </div>
@@ -41,7 +44,7 @@ const Categories = () => {
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
-                            Cadastrar Categoria
+                            Cadastrar Marca
                         </a>
                     </div>
                 </div>
@@ -58,12 +61,12 @@ const Categories = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.length > 0 ? (
-                                categories.map((category) => (
-                                    <tr key={category.id}>
-                                        <td>{category.id}</td>
-                                        <td>{category.name}</td>
-                                        <td>{category.description}</td>
+                            {brands.length > 0 ? (
+                                brands.map((brand) => (
+                                    <tr key={brand.id}>
+                                        <td>{brand.id}</td>
+                                        <td>{brand.name}</td>
+                                        <td>{brand.description}</td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye"></i>
@@ -80,7 +83,7 @@ const Categories = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="3" style={{ textAlign: 'center' }}>
-                                        Nenhuma categoria encontrada
+                                        Nenhuma marca encontrada
                                     </td>
                                 </tr>
                             )}
@@ -92,4 +95,4 @@ const Categories = () => {
     );
 };
 
-export default Categories;
+export default Brands;

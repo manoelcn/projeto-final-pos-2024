@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import brandService from "../services/brandsService"; // Importando o serviço de brands
+import productsService from '../../services/productsService';
 
-const Brands = () => {
-    const [brands, setBrands] = useState([]);  // Estado para armazenar as brands
-    const [error, setError] = useState(null);   // Estado para armazenar erros, caso ocorra
+const Products = () => {
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
 
-    // useEffect para fazer o GET quando o componente for montado
     useEffect(() => {
-        // Chama o serviço para listar as brands
-        brandService
-            .listBrands()
+        productsService
+            .listProducts()
             .then((data) => {
-                setBrands(data); // Atualiza o estado com as brands retornadas pela API
+                setProducts(data);
             })
             .catch((error) => {
-                setError(error.message); // Caso ocorra um erro, atualiza o estado de erro
+                setError(error.message);
             });
-    }, []); // O array vazio significa que o useEffect será chamado apenas uma vez quando o componente for montado
+    }, []);
 
-    // Exibe mensagem de erro, se houver
     if (error) {
-        return <p>Erro ao carregar as brands: {error}</p>;
+        return <p>Erro ao carregar produtos: {error}</p>
     }
 
     return (
@@ -29,7 +26,7 @@ const Brands = () => {
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Marcas
+                        Produtos
                     </h3>
                 </div>
             </div>
@@ -44,7 +41,7 @@ const Brands = () => {
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
-                            Cadastrar Marca
+                            Cadastrar Produtos
                         </a>
                     </div>
                 </div>
@@ -55,18 +52,28 @@ const Brands = () => {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nome</th>
-                                <th>Descrição</th>
+                                <th>Título</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th>Preço de Custo</th>
+                                <th>Preço de Venda</th>
+                                <th>Número de Série</th>
+                                <th>Quantidade</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {brands.length > 0 ? (
-                                brands.map((brand) => (
-                                    <tr key={brand.id}>
-                                        <td>{brand.id}</td>
-                                        <td>{brand.name}</td>
-                                        <td>{brand.description}</td>
+                            {products.length > 0 ? (
+                                products.map((product) => (
+                                    <tr key={product.id}>
+                                        <td>{product.id}</td>
+                                        <td>{product.title}</td>
+                                        <td>{product.brand}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.cost_price}</td>
+                                        <td>{product.selling_price}</td>
+                                        <td>{product.serie_number}</td>
+                                        <td>{product.quantity}</td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye"></i>
@@ -82,8 +89,8 @@ const Brands = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="3" style={{ textAlign: 'center' }}>
-                                        Nenhuma marca encontrada
+                                    <td colSpan="4" style={{ textAlign: 'center' }}>
+                                        Nenhum produto encontrado
                                     </td>
                                 </tr>
                             )}
@@ -95,4 +102,4 @@ const Brands = () => {
     );
 };
 
-export default Brands;
+export default Products;

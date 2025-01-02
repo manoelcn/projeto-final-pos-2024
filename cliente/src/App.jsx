@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
-import Brands from './pages/Brands';
-import Categories from './pages/Categories';
+import Footer from './components/Footer';
+import Brands from './pages//brands/Brands';
+import Categories from './pages/categories/Categories';
 import Index from './pages/Index';
-import Inflows from './pages/Inflows';
-import Outflows from './pages/Outflows';
-import Products from './pages/Products';
-import Suppliers from './pages/Suppliers';
+import Inflows from './pages/inflows/Inflows';
+import Outflows from './pages/outflows/Outflows';
+import Products from './pages/products/Products';
+import Suppliers from './pages/suppliers/Suppliers';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/suppliers' element={<Suppliers />} />
         </Routes>
       </BrowserRouter>
+      <Footer></Footer>
     </div>
   )
 

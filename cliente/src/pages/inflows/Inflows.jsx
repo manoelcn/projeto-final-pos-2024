@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import outflowsService from '../services/outflowsService';
+import inflowsService from '../../services/inflowsService';
 
-const Outflows = () => {
-    const [outflows, setOutflows] = useState([]);
+const Inflows = () => {
+    const [inflows, setInflows] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        outflowsService
-            .listOutflows()
+        inflowsService
+            .listInflows()
             .then((data) => {
-                setOutflows(data);
+                setInflows(data);
             })
             .catch((error) => {
                 setError(error.message);
@@ -18,7 +18,7 @@ const Outflows = () => {
     }, []);
 
     if (error) {
-        return <p>Erro ao carregar saídas: {error}</p>
+        return <p>Erro ao carregar entradas: {error}</p>
     }
 
     return (
@@ -26,7 +26,7 @@ const Outflows = () => {
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Saídas
+                        Entradas
                     </h3>
                 </div>
             </div>
@@ -41,7 +41,7 @@ const Outflows = () => {
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
-                            Cadastrar Saída
+                            Cadastrar Entrada
                         </a>
                     </div>
                 </div>
@@ -53,19 +53,21 @@ const Outflows = () => {
                             <tr>
                                 <th>Id</th>
                                 <th>Produto</th>
+                                <th>Fornecedor</th>
                                 <th>Quantidade</th>
                                 <th>Data de entrada</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {outflows.length > 0 ? (
-                                outflows.map((outflow) => (
-                                    <tr key={outflow.id}>
-                                        <td>{outflow.id}</td>
-                                        <td>{outflow.product}</td>
-                                        <td>{outflow.quantity}</td>
-                                        <td>{outflow.created_at}</td>
+                            {inflows.length > 0 ? (
+                                inflows.map((inflow) => (
+                                    <tr key={inflow.id}>
+                                        <td>{inflow.id}</td>
+                                        <td>{inflow.product}</td>
+                                        <td>{inflow.supplier}</td>
+                                        <td>{inflow.quantity}</td>
+                                        <td>{inflow.created_at}</td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye"></i>
@@ -76,7 +78,7 @@ const Outflows = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="6" style={{ textAlign: 'center' }}>
-                                        Nenhuma saída encontrada
+                                        Nenhuma entrada encontrada
                                     </td>
                                 </tr>
                             )}
@@ -88,4 +90,4 @@ const Outflows = () => {
     );
 };
 
-export default Outflows;
+export default Inflows;

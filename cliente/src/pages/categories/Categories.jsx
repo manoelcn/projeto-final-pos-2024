@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import productsService from '../services/productsService';
+import categoriesService from '../../services/categoriesService';
 
-const Products = () => {
-    const [products, setProducts] = useState([]);
+const Categories = () => {
+    const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        productsService
-            .listProducts()
+        categoriesService
+            .listCategories()
             .then((data) => {
-                setProducts(data);
+                setCategories(data);
             })
             .catch((error) => {
                 setError(error.message);
@@ -18,7 +18,7 @@ const Products = () => {
     }, []);
 
     if (error) {
-        return <p>Erro ao carregar produtos: {error}</p>
+        return <p>Erro ao carregar as categorias: {error}</p>
     }
 
     return (
@@ -26,7 +26,7 @@ const Products = () => {
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Produtos
+                        Categorias
                     </h3>
                 </div>
             </div>
@@ -41,7 +41,7 @@ const Products = () => {
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
-                            Cadastrar Produtos
+                            Cadastrar Categoria
                         </a>
                     </div>
                 </div>
@@ -52,28 +52,18 @@ const Products = () => {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Título</th>
-                                <th>Marca</th>
-                                <th>Categoria</th>
-                                <th>Preço de Custo</th>
-                                <th>Preço de Venda</th>
-                                <th>Número de Série</th>
-                                <th>Quantidade</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {products.length > 0 ? (
-                                products.map((product) => (
-                                    <tr key={product.id}>
-                                        <td>{product.id}</td>
-                                        <td>{product.title}</td>
-                                        <td>{product.brand}</td>
-                                        <td>{product.category}</td>
-                                        <td>{product.cost_price}</td>
-                                        <td>{product.selling_price}</td>
-                                        <td>{product.serie_number}</td>
-                                        <td>{product.quantity}</td>
+                            {categories.length > 0 ? (
+                                categories.map((category) => (
+                                    <tr key={category.id}>
+                                        <td>{category.id}</td>
+                                        <td>{category.name}</td>
+                                        <td>{category.description}</td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye"></i>
@@ -89,8 +79,8 @@ const Products = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>
-                                        Nenhum produto encontrado
+                                    <td colSpan="3" style={{ textAlign: 'center' }}>
+                                        Nenhuma categoria encontrada
                                     </td>
                                 </tr>
                             )}
@@ -102,4 +92,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default Categories;

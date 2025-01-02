@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import suppliersService from '../services/suppliersService';
+import outflowsService from '../../services/outflowsService';
 
-const Suppliers = () => {
-    const [suppliers, setSuppliers] = useState([]);
+const Outflows = () => {
+    const [outflows, setOutflows] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        suppliersService
-            .listSuppliers()
+        outflowsService
+            .listOutflows()
             .then((data) => {
-                setSuppliers(data);
+                setOutflows(data);
             })
             .catch((error) => {
                 setError(error.message);
@@ -18,7 +18,7 @@ const Suppliers = () => {
     }, []);
 
     if (error) {
-        return <p>Erro ao carregar fornecedores: {error}</p>
+        return <p>Erro ao carregar saídas: {error}</p>
     }
 
     return (
@@ -26,7 +26,7 @@ const Suppliers = () => {
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Fornecedores
+                        Saídas
                     </h3>
                 </div>
             </div>
@@ -41,7 +41,7 @@ const Suppliers = () => {
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
-                            Cadastrar Fornecedor
+                            Cadastrar Saída
                         </a>
                     </div>
                 </div>
@@ -52,35 +52,31 @@ const Suppliers = () => {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nome</th>
-                                <th>Descrição</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Data de entrada</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {suppliers.length > 0 ? (
-                                suppliers.map((supplier) => (
-                                    <tr key={supplier.id}>
-                                        <td>{supplier.id}</td>
-                                        <td>{supplier.name}</td>
-                                        <td>{supplier.description}</td>
+                            {outflows.length > 0 ? (
+                                outflows.map((outflow) => (
+                                    <tr key={outflow.id}>
+                                        <td>{outflow.id}</td>
+                                        <td>{outflow.product}</td>
+                                        <td>{outflow.quantity}</td>
+                                        <td>{outflow.created_at}</td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>
-                                        Nenhum fornecedor encontrado
+                                    <td colSpan="6" style={{ textAlign: 'center' }}>
+                                        Nenhuma saída encontrada
                                     </td>
                                 </tr>
                             )}
@@ -92,4 +88,4 @@ const Suppliers = () => {
     );
 };
 
-export default Suppliers;
+export default Outflows;
