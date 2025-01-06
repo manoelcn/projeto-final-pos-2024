@@ -39,7 +39,7 @@ const Products = () => {
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-6">
-                        <a href="#" class="btn btn-primary float-end">
+                        <a href="/createproduct" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
                             Cadastrar Produtos
                         </a>
