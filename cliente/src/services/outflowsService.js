@@ -5,6 +5,10 @@ const outflowService = {
         return apiWrapper.get("outflows");
     },
 
+    createOutlfow(outflow) {
+        return apiWrapper.post("outflows", outflow);
+    },
+
     getOutflowById(id) {
         return apiWrapper.get(`outflows/${id}`);
     },
