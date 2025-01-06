@@ -39,7 +39,7 @@ const Outflows = () => {
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-6">
-                        <a href="#" class="btn btn-primary float-end">
+                        <a href="/createoutflow" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
                             Cadastrar Saída
                         </a>

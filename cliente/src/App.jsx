@@ -16,6 +16,7 @@ import Inflows from './pages/inflows/Inflows';
 import CreateInflow from './pages/inflows/CreateInflow';
 
 import Outflows from './pages/outflows/Outflows';
+import CreateOutflow from './pages/outflows/CreateOutflow';
 
 import Products from './pages/products/Products';
 import CreateProduct from './pages/products/CreateProduct';
@@ -40,6 +41,7 @@ function App() {
           <Route path='/createinflow' element={<CreateInflow />} />
 
           <Route path='/outflows' element={<Outflows />} />
+          <Route path='/createoutflow' element={<CreateOutflow />} />
 
           <Route path='/products' element={<Products />} />
           <Route path='/createproduct' element={<CreateProduct />} />
