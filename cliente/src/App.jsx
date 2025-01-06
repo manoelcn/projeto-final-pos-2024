@@ -13,6 +13,7 @@ import CreateCategory from './pages/categories/CreateCategory';
 import Index from './pages/Index';
 
 import Inflows from './pages/inflows/Inflows';
+import CreateInflow from './pages/inflows/CreateInflow';
 
 import Outflows from './pages/outflows/Outflows';
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/createcategory" element={<CreateCategory />} />
 
           <Route path='/inflows' element={<Inflows />} />
+          <Route path='/createinflow' element={<CreateInflow />} />
 
           <Route path='/outflows' element={<Outflows />} />
 
