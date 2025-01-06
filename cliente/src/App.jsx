@@ -11,6 +11,7 @@ import Inflows from './pages/inflows/Inflows';
 import Outflows from './pages/outflows/Outflows';
 import Products from './pages/products/Products';
 import Suppliers from './pages/suppliers/Suppliers';
+import CreateSupplier from './pages/suppliers/CreateSupplier';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path='/products' element={<Products />} />
 
           <Route path='/suppliers' element={<Suppliers />} />
+          <Route path='/createsupplier' element={<CreateSupplier />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
