@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Brands from './pages//brands/Brands';
 import CreateBrand from './pages/brands/CreateBrand';
 import Categories from './pages/categories/Categories';
+import CreateCategory from './pages/categories/CreateCategory';
 import Index from './pages/Index';
 import Inflows from './pages/inflows/Inflows';
 import Outflows from './pages/outflows/Outflows';
@@ -20,10 +21,16 @@ function App() {
           <Route path='/' element={<Index />} />
           <Route path='/brands' element={<Brands />} />
           <Route path="/createbrand" element={<CreateBrand />} />
+
           <Route path='/categories' element={<Categories />} />
+          <Route path="/createcategory" element={<CreateCategory />} />
+
           <Route path='/inflows' element={<Inflows />} />
+
           <Route path='/outflows' element={<Outflows />} />
+
           <Route path='/products' element={<Products />} />
+
           <Route path='/suppliers' element={<Suppliers />} />
         </Routes>
       </BrowserRouter>
