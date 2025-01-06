@@ -6,7 +6,7 @@ const inflowService = {
     },
 
     createInflow(inflow) {
-        return apiWrapper.post("brands", inflow);
+        return apiWrapper.post("inflows", inflow);
     },
 
     getInflowById(id) {
