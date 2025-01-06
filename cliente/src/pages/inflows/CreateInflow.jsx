@@ -110,7 +110,7 @@ const CreateInflow = () => {
                 <button type="submit">Criar Entrada</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default CreateInflow;
