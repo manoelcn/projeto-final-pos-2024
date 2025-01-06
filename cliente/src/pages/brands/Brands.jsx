@@ -25,6 +25,7 @@ const Brands = () => {
     }
 
     return (
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -42,7 +43,7 @@ const Brands = () => {
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-6">
-                        <a href="#" class="btn btn-primary float-end">
+                        <a href="/createbrand" class="btn btn-primary float-end">
                             <i class="bi bi-plus"></i>
                             Cadastrar Marca
                         </a>
