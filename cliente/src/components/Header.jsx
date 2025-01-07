@@ -11,24 +11,12 @@ function Header() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/brands">marcas</Nav.Link>
-                        <Nav.Link href="/categories">categorias</Nav.Link>
-                        <Nav.Link href="/inflows">entradas</Nav.Link>
-                        <Nav.Link href="/outflows">saidas</Nav.Link>
-                        <Nav.Link href="/products">produtos</Nav.Link>
-                        <Nav.Link href="/suppliers">fornecedores</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Another action
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="/brands">Marcas</Nav.Link>
+                        <Nav.Link href="/categories">Categorias</Nav.Link>
+                        <Nav.Link href="/suppliers">Fornecedores</Nav.Link>
+                        <Nav.Link href="/products">Produtos</Nav.Link>
+                        <Nav.Link href="/inflows">Entradas</Nav.Link>
+                        <Nav.Link href="/outflows">Saídas</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
