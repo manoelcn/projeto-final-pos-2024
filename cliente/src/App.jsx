@@ -28,6 +28,7 @@ import CreateProduct from './pages/products/CreateProduct';
 import Suppliers from './pages/suppliers/Suppliers';
 import CreateSupplier from './pages/suppliers/CreateSupplier';
 import DetailSupplier from './pages/suppliers/DetailSupplier';
+import EditSupplier from './pages/suppliers/EditSupplier';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path='/suppliers' element={<Suppliers />} />
           <Route path='/suppliers/:id' element={<DetailSupplier />} />
           <Route path='/createsupplier' element={<CreateSupplier />} />
+          <Route path="/suppliers/:id/edit" element={<EditSupplier />} />
 
           <Route path='/inflows' element={<Inflows />} />
           <Route path='/createinflow' element={<CreateInflow />} />
