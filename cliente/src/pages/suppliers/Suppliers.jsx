@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import suppliersService from '../../services/suppliersService';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const Suppliers = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [supplierDelete, setSupplierDelete] = useState(null);
 
     useEffect(() => {
         suppliersService
@@ -16,6 +20,30 @@ const Suppliers = () => {
                 setError(error.message);
             });
     }, []);
+
+    const handleShowModal = (supplier) => {
+        setSupplierDelete(supplier);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setSupplierDelete(null);
+        setShowModal(false);
+    };
+
+    const handleDeleteSupplier = () => {
+        if (!supplierDelete) return;
+        suppliersService
+            .deleteSupplier(supplierDelete.id)
+            .then(() => {
+                setSuppliers(suppliers.filter((b) => b.id !== supplierDelete.id));
+                handleCloseModal();
+            })
+            .catch(() => {
+                setError("Erro ao excluir fornecedor.");
+                handleCloseModal();
+            });
+    };
 
     if (error) {
         return <p>Erro ao carregar fornecedores: {error}</p>
@@ -71,8 +99,11 @@ const Suppliers = () => {
                                             <a href={`/suppliers/${supplier.id}/edit`} class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil">Editar</i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash"></i>
+                                            <a href="#" onClick={(e) => {
+                                                e.preventDefault();
+                                                handleShowModal(supplier);
+                                            }} class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash">Excluir</i>
                                             </a>
                                         </td>
                                     </tr>
@@ -88,6 +119,23 @@ const Suppliers = () => {
                     </Table>
                 </div>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação de Exclusão</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Tem certeza que deseja excluir o fornecedor{" "}
+                    <strong>{supplierDelete?.name}</strong>?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteSupplier}>
+                        Excluir
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
