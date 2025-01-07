@@ -92,10 +92,7 @@ const Brands = () => {
                                         <td>{brand.name}</td>
                                         <td>{brand.description}</td>
                                         <td>
-                                            <a href="#" onClick={(e) => {
-                                                e.preventDefault(); // Previne a navegação padrão
-                                                handleShowDetails(brand.id); // Chama a função para buscar detalhes
-                                            }} class="btn btn-info btn-sm">
+                                            <a href={`/brands/${brand.id}`} class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye">Detalhar</i>
                                             </a>
                                             <a href="#" class="btn btn-warning btn-sm">
