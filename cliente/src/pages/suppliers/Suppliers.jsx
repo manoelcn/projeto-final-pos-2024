@@ -65,8 +65,8 @@ const Suppliers = () => {
                                         <td>{supplier.name}</td>
                                         <td>{supplier.description}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye"></i>
+                                            <a href={`/suppliers/${supplier.id}`} class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye">Detalhar</i>
                                             </a>
                                             <a href="#" class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil"></i>

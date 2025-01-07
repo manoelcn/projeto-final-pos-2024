@@ -27,6 +27,7 @@ import CreateProduct from './pages/products/CreateProduct';
 
 import Suppliers from './pages/suppliers/Suppliers';
 import CreateSupplier from './pages/suppliers/CreateSupplier';
+import DetailSupplier from './pages/suppliers/DetailSupplier';
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
           <Route path="/createcategory" element={<CreateCategory />} />
           <Route path="/categories/:id/edit" element={<EditCategory />} />
 
+          <Route path='/suppliers' element={<Suppliers />} />
+          <Route path='/suppliers/:id' element={<DetailSupplier />} />
+          <Route path='/createsupplier' element={<CreateSupplier />} />
+
           <Route path='/inflows' element={<Inflows />} />
           <Route path='/createinflow' element={<CreateInflow />} />
 
@@ -54,9 +59,6 @@ function App() {
 
           <Route path='/products' element={<Products />} />
           <Route path='/createproduct' element={<CreateProduct />} />
-
-          <Route path='/suppliers' element={<Suppliers />} />
-          <Route path='/createsupplier' element={<CreateSupplier />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
