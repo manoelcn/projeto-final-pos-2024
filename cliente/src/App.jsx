@@ -11,6 +11,7 @@ import EditBrand from './pages/brands/EditBrand';
 
 import Categories from './pages/categories/Categories';
 import CreateCategory from './pages/categories/CreateCategory';
+import DetailCategory from './pages/categories/DetailCategory';
 
 import Index from './pages/Index';
 
@@ -40,6 +41,7 @@ function App() {
 
 
           <Route path='/categories' element={<Categories />} />
+          <Route path='/categories/:id' element={<DetailCategory />} />
           <Route path="/createcategory" element={<CreateCategory />} />
 
           <Route path='/inflows' element={<Inflows />} />
