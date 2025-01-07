@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Brands from './pages//brands/Brands';
 import CreateBrand from './pages/brands/CreateBrand';
 import DetailBrand from './pages/brands/DetailBrand';
+import EditBrand from './pages/brands/EditBrand';
 
 import Categories from './pages/categories/Categories';
 import CreateCategory from './pages/categories/CreateCategory';
@@ -33,8 +34,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Index />} />
           <Route path='/brands' element={<Brands />} />
-          <Route path="/createbrand" element={<CreateBrand />} />
           <Route path="/brands/:id" element={<DetailBrand />} />
+          <Route path="/createbrand" element={<CreateBrand />} />
+          <Route path="/brands/:id/edit" element={<EditBrand />} />
+
 
           <Route path='/categories' element={<Categories />} />
           <Route path="/createcategory" element={<CreateCategory />} />

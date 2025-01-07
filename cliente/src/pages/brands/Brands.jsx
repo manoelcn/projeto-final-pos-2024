@@ -72,7 +72,7 @@ const Brands = () => {
                                             <a href={`/brands/${brand.id}`} class="btn btn-info btn-sm">
                                                 <i class="bi bi-eye">Detalhar</i>
                                             </a>
-                                            <a href="#" class="btn btn-warning btn-sm">
+                                            <a href={`/brands/${brand.id}/edit`} class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil">Editar</i>
                                             </a>
                                             <a href="#" class="btn btn-danger btn-sm">
