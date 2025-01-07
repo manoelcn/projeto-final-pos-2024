@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import productsService from '../../services/productsService';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [productDelete, setProductDelete] = useState(null);
 
     useEffect(() => {
         productsService
@@ -16,6 +20,30 @@ const Products = () => {
                 setError(error.message);
             });
     }, []);
+
+    const handleShowModal = (product) => {
+        setProductDelete(product);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setProductDelete(null);
+        setShowModal(false);
+    };
+
+    const handleDeleteProduct = () => {
+        if (!productDelete) return;
+        productsService
+            .deleteProduct(productDelete.id)
+            .then(() => {
+                setProducts(products.filter((b) => b.id !== productDelete.id));
+                handleCloseModal();
+            })
+            .catch(() => {
+                setError("Erro ao excluir produto.");
+                handleCloseModal();
+            });
+    };
 
     if (error) {
         return <p>Erro ao carregar produtos: {error}</p>
@@ -81,8 +109,11 @@ const Products = () => {
                                             <a href={`/products/${product.id}/edit`} class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil">Editar</i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash"></i>
+                                            <a onClick={(e) => {
+                                                e.preventDefault();
+                                                handleShowModal(product);
+                                            }} class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash">Excluir</i>
                                             </a>
                                         </td>
                                     </tr>
@@ -98,6 +129,23 @@ const Products = () => {
                     </Table>
                 </div>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação de Exclusão</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Tem certeza que deseja excluir a marca{" "}
+                    <strong>{productDelete?.name}</strong>?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteProduct}>
+                        Excluir
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
