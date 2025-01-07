@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import brandService from '../../services/brandsService'; // Importando o serviço de brands
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 const Brands = () => {
     const [brands, setBrands] = useState([]);  // Estado para armazenar as brands
-    const [selectedBrand, setSelectedBrand] = useState(null); // Armazena os detalhes da marca selecionada
-    const [showModal, setShowModal] = useState(false); // Controla a exibição do modal
     const [error, setError] = useState(null); // Armazena erros (se houver)
 
     // useEffect para fazer o GET quando o componente for montado
@@ -22,25 +18,6 @@ const Brands = () => {
                 setError(error.message); // Caso ocorra um erro, atualiza o estado de erro
             });
     }, []); // O array vazio significa que o useEffect será chamado apenas uma vez quando o componente for montado
-
-    const handleShowDetails = (id) => {
-        // Busca os detalhes da marca pelo ID
-        brandService
-            .getBrandById(id)
-            .then((data) => {
-                setSelectedBrand(data); // Armazena os detalhes da marca
-                setShowModal(true); // Exibe o modal
-            })
-            .catch((err) => {
-                setError("Erro ao carregar os detalhes da marca.");
-            });
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false); // Fecha o modal
-        setSelectedBrand(null); // Limpa os detalhes da marca
-        setError(null); // Limpa erros
-    };
 
     // Exibe mensagem de erro, se houver
     if (error) {
@@ -115,29 +92,6 @@ const Brands = () => {
                     </Table>
                 </div>
             </div>
-            {/* Modal para exibir os detalhes da marca */}
-            <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Detalhes da Marca</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-                    {selectedBrand ? (
-                        <div>
-                            <p><strong>ID:</strong> {selectedBrand.id}</p>
-                            <p><strong>Nome:</strong> {selectedBrand.name}</p>
-                            <p><strong>Descrição:</strong> {selectedBrand.description}</p>
-                        </div>
-                    ) : (
-                        <p>Carregando...</p>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                        Fechar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 };
