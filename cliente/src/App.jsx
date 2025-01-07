@@ -24,6 +24,7 @@ import CreateOutflow from './pages/outflows/CreateOutflow';
 
 import Products from './pages/products/Products';
 import CreateProduct from './pages/products/CreateProduct';
+import DetailProduct from './pages/products/DetailProduct';
 
 import Suppliers from './pages/suppliers/Suppliers';
 import CreateSupplier from './pages/suppliers/CreateSupplier';
@@ -53,14 +54,16 @@ function App() {
           <Route path='/createsupplier' element={<CreateSupplier />} />
           <Route path="/suppliers/:id/edit" element={<EditSupplier />} />
 
+          <Route path='/products' element={<Products />} />
+          <Route path='/products/:id' element={<DetailProduct />} />
+          <Route path='/createproduct' element={<CreateProduct />} />
+
+
           <Route path='/inflows' element={<Inflows />} />
           <Route path='/createinflow' element={<CreateInflow />} />
 
           <Route path='/outflows' element={<Outflows />} />
           <Route path='/createoutflow' element={<CreateOutflow />} />
-
-          <Route path='/products' element={<Products />} />
-          <Route path='/createproduct' element={<CreateProduct />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>

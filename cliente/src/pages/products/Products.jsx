@@ -75,8 +75,8 @@ const Products = () => {
                                         <td>{product.serie_number}</td>
                                         <td>{product.quantity}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye"></i>
+                                            <a href={`/products/${product.id}`} class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye">Detalhar</i>
                                             </a>
                                             <a href="#" class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil"></i>
