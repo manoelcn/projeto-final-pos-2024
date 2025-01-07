@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import brandService from '../../services/brandsService'; // Importando o serviço de brands
+import Modal from "react-bootstrap/Modal"; // Modal do Bootstrap
+import Button from "react-bootstrap/Button"; // Botão do Bootstrap
 
 const Brands = () => {
     const [brands, setBrands] = useState([]);  // Estado para armazenar as brands
+    const [loading, setLoading] = useState(true); // Estado de carregamento
     const [error, setError] = useState(null); // Armazena erros (se houver)
+    const [showModal, setShowModal] = useState(false); // Controle de exibição do modal
+    const [brandToDelete, setBrandToDelete] = useState(null); // Marca selecionada para exclusão
 
     // useEffect para fazer o GET quando o componente for montado
     useEffect(() => {
@@ -18,6 +23,30 @@ const Brands = () => {
                 setError(error.message); // Caso ocorra um erro, atualiza o estado de erro
             });
     }, []); // O array vazio significa que o useEffect será chamado apenas uma vez quando o componente for montado
+
+    const handleShowModal = (brand) => {
+        setBrandToDelete(brand);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setBrandToDelete(null);
+        setShowModal(false);
+    };
+
+    const handleDeleteBrand = () => {
+        if (!brandToDelete) return;
+        brandService
+            .deleteBrand(brandToDelete.id)
+            .then(() => {
+                setBrands(brands.filter((b) => b.id !== brandToDelete.id)); // Remove a marca da lista
+                handleCloseModal(); // Fecha o modal
+            })
+            .catch(() => {
+                setError("Erro ao excluir a marca.");
+                handleCloseModal();
+            });
+    };
 
     // Exibe mensagem de erro, se houver
     if (error) {
@@ -75,7 +104,10 @@ const Brands = () => {
                                             <a href={`/brands/${brand.id}/edit`} class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil">Editar</i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm">
+                                            <a href="#" onClick={(e) => {
+                                                e.preventDefault();
+                                                handleShowModal(brand);
+                                            }} class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash">Excluir</i>
                                             </a>
                                         </td>
@@ -92,6 +124,24 @@ const Brands = () => {
                     </Table>
                 </div>
             </div>
+            {/* Modal de Confirmação */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação de Exclusão</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Tem certeza que deseja excluir a marca{" "}
+                    <strong>{brandToDelete?.name}</strong>?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteBrand}>
+                        Excluir
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
