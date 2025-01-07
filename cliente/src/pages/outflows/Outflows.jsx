@@ -67,8 +67,8 @@ const Outflows = () => {
                                         <td>{outflow.quantity}</td>
                                         <td>{outflow.created_at}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye"></i>
+                                            <a href={`outflows/${outflow.id}`} class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye">Detalhar</i>
                                             </a>
                                         </td>
                                     </tr>

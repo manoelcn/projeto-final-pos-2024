@@ -21,6 +21,7 @@ import DetailInflow from './pages/inflows/DetailInflows';
 import CreateInflow from './pages/inflows/CreateInflow';
 
 import Outflows from './pages/outflows/Outflows';
+import DetailOutflow from './pages/outflows/DetailOutflows';
 import CreateOutflow from './pages/outflows/CreateOutflow';
 
 import Products from './pages/products/Products';
@@ -66,6 +67,7 @@ function App() {
           <Route path='/createinflow' element={<CreateInflow />} />
 
           <Route path='/outflows' element={<Outflows />} />
+          <Route path='/outflows/:id' element={<DetailOutflow />} />
           <Route path='/createoutflow' element={<CreateOutflow />} />
         </Routes>
       </BrowserRouter>
