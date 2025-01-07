@@ -17,6 +17,7 @@ import EditCategory from './pages/categories/EditCategory';
 import Index from './pages/Index';
 
 import Inflows from './pages/inflows/Inflows';
+import DetailInflow from './pages/inflows/DetailInflows';
 import CreateInflow from './pages/inflows/CreateInflow';
 
 import Outflows from './pages/outflows/Outflows';
@@ -61,6 +62,7 @@ function App() {
           <Route path="/products/:id/edit" element={<EditProduct />} />
 
           <Route path='/inflows' element={<Inflows />} />
+          <Route path='/inflows/:id' element={<DetailInflow />} />
           <Route path='/createinflow' element={<CreateInflow />} />
 
           <Route path='/outflows' element={<Outflows />} />
