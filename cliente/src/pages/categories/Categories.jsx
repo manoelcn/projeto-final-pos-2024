@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Table from 'react-bootstrap/Table';
 import categoriesService from '../../services/categoriesService';
-import Modal from "react-bootstrap/Modal"; // Modal do Bootstrap
+import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import SearchIcon from '@mui/icons-material/Search';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AddIcon from '@mui/icons-material/Add';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -47,57 +52,51 @@ const Categories = () => {
         categoriesService
             .deleteCategory(categoryDelete.id)
             .then(() => {
-                setCategories(categories.filter((b) => b.id !== categoryDelete.id));
+                setCategories(categories.filter((c) => c.id !== categoryDelete.id));
                 handleCloseModal();
             })
             .catch(() => {
                 setError("Erro ao excluir categoria.");
                 handleCloseModal();
             });
-    }
+    };
 
     if (error) {
-        return <p>Erro ao carregar as categorias: {error}</p>
+        return <p>Erro ao carregar as categorias: {error}</p>;
     }
 
     return (
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>
+                    <h3 class="text">
                         Categorias
                     </h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            placeholder="Nome"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button type="button"
-                            className="btn btn-primary"
-                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
-                        <a className="btn" href="/categories">limpar busca</a>
+                        <input type="text" class="form-control" name="name" placeholder="Nome" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                        <Button variant="primary" onClick={handleSearchClick} className="btn btn-primary">
+                            <SearchIcon />
+                        </Button>
+                        <a class="btn btn-secondary" href="/categories">
+                            <FilterAltOffIcon />
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-6">
-                        <a href="/createcategory" class="btn btn-primary float-end">
-                            <i class="bi bi-plus"></i>
-                            Cadastrar Categoria
+                        <a href="/createcategory" class="btn btn-primary">
+                            <AddIcon /> Cadastrar Categoria
                         </a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <Table striped bordered hover>
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -114,30 +113,27 @@ const Categories = () => {
                                         <td>{category.name}</td>
                                         <td>{category.description}</td>
                                         <td>
-                                            <a href={`/categories/${category.id}`} class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye">Detalhar</i>
+                                            <a href={`/categories/${category.id}`} class="btn btn-info btn-sm me-2">
+                                                <VisibilityIcon />
                                             </a>
-                                            <a href={`/categories/${category.id}/edit`} class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pencil">Editar</i>
+                                            <a href={`/categories/${category.id}/edit`} class="btn btn-warning btn-sm me-2">
+                                                <EditIcon />
                                             </a>
-                                            <a href="#" onClick={(e) => {
-                                                e.preventDefault();
-                                                handleShowModal(category);
-                                            }} class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash">Excluir</i>
+                                            <a class="btn btn-danger btn-sm me-2" onClick={(e) => { e.preventDefault(); handleShowModal(category); }}>
+                                                <DeleteIcon />
                                             </a>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="3" style={{ textAlign: 'center' }}>
+                                    <td colSpan="4" class="text-center">
                                         Nenhuma categoria encontrada
                                     </td>
                                 </tr>
                             )}
                         </tbody>
-                    </Table>
+                    </table>
                 </div>
             </div>
             <Modal show={showModal} onHide={handleCloseModal}>

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Table from 'react-bootstrap/Table';
 import inflowsService from '../../services/inflowsService';
+import SearchIcon from '@mui/icons-material/Search';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AddIcon from '@mui/icons-material/Add';
 
 const Inflows = () => {
     const [inflows, setInflows] = useState([]);
@@ -33,43 +36,33 @@ const Inflows = () => {
     }
 
     return (
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>
-                        Entradas
-                    </h3>
+                    <h3>Entradas</h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="product"
-                            placeholder="Produto"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button type="button"
-                            className="btn btn-primary"
-                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
-                        <a className="btn" href="/inflows">limpar busca</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-6">
-                        <a href="/createinflow" class="btn btn-primary float-end">
-                            <i class="bi bi-plus"></i>
-                            Cadastrar Entrada
+                        <input type="text" className="form-control" name="search" placeholder="Produto" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                        <button type="button" className="btn btn-primary" onClick={handleSearchClick}>
+                            <SearchIcon />
+                        </button>
+                        <a className="btn btn-secondary" href="/inflows">
+                            <FilterAltOffIcon />
                         </a>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <a href="/createinflow" class="btn btn-primary">
+                        <AddIcon /> Cadastrar Entrada
+                    </a>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <Table striped bordered hover>
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -91,20 +84,20 @@ const Inflows = () => {
                                         <td>{inflow.created_at}</td>
                                         <td>
                                             <a href={`inflows/${inflow.id}`} class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye">Detalhar</i>
+                                                <VisibilityIcon />
                                             </a>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="6" style={{ textAlign: 'center' }}>
+                                    <td colSpan="6" class="text-center">
                                         Nenhuma entrada encontrada
                                     </td>
                                 </tr>
                             )}
                         </tbody>
-                    </Table>
+                    </table>
                 </div>
             </div>
         </div>

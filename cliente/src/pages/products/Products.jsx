@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Table from 'react-bootstrap/Table';
 import productsService from '../../services/productsService';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-
+import SearchIcon from '@mui/icons-material/Search';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AddIcon from '@mui/icons-material/Add';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -66,43 +70,33 @@ const Products = () => {
     }
 
     return (
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>
-                        Produtos
-                    </h3>
+                    <h3>Produtos</h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="title"
-                            placeholder="Título"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button type="button"
-                            className="btn btn-primary"
-                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
-                        <a className="btn" href="/products">limpar busca</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-6">
-                        <a href="/createproduct" class="btn btn-primary float-end">
-                            <i class="bi bi-plus"></i>
-                            Cadastrar Produtos
+                        <input type="text" className="form-control" name="title" placeholder="Título" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                        <Button variant="primary" onClick={handleSearchClick}>
+                            <SearchIcon />
+                        </Button>
+                        <a class="btn btn-secondary" href="/products">
+                            <FilterAltOffIcon />
                         </a>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <a href="/createproduct" class="btn btn-primary">
+                        <AddIcon /> Cadastrar Produto
+                    </a>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <Table striped bordered hover>
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -129,30 +123,27 @@ const Products = () => {
                                         <td>{product.serie_number}</td>
                                         <td>{product.quantity}</td>
                                         <td>
-                                            <a href={`/products/${product.id}`} class="btn btn-info btn-sm">
-                                                <i class="bi bi-eye">Detalhar</i>
+                                            <a href={`/products/${product.id}`} class="btn btn-info btn-sm me-2">
+                                                <VisibilityIcon />
                                             </a>
-                                            <a href={`/products/${product.id}/edit`} class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pencil">Editar</i>
+                                            <a href={`/products/${product.id}/edit`} class="btn btn-warning btn-sm me-2">
+                                                <EditIcon />
                                             </a>
-                                            <a onClick={(e) => {
-                                                e.preventDefault();
-                                                handleShowModal(product);
-                                            }} class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash">Excluir</i>
+                                            <a class="btn btn-danger btn-sm" onClick={(e) => { e.preventDefault(); handleShowModal(product); }}>
+                                                <DeleteIcon />
                                             </a>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>
+                                    <td colSpan="9" class="text-center">
                                         Nenhum produto encontrado
                                     </td>
                                 </tr>
                             )}
                         </tbody>
-                    </Table>
+                    </table>
                 </div>
             </div>
             <Modal show={showModal} onHide={handleCloseModal}>
@@ -160,8 +151,8 @@ const Products = () => {
                     <Modal.Title>Confirmação de Exclusão</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Tem certeza que deseja excluir a marca{" "}
-                    <strong>{productDelete?.name}</strong>?
+                    Tem certeza que deseja excluir o produto{" "}
+                    <strong>{productDelete?.title}</strong>?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>

@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
-import Table from 'react-bootstrap/Table';
-import brandService from '../../services/brandsService'; // Importando o serviço de brands
-import Modal from "react-bootstrap/Modal"; // Modal do Bootstrap
-import Button from "react-bootstrap/Button"; // Botão do Bootstrap
+import brandService from '../../services/brandsService';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import SearchIcon from '@mui/icons-material/Search';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AddIcon from '@mui/icons-material/Add';
 
 const Brands = () => {
-    const [brands, setBrands] = useState([]);  // Estado para armazenar as brands
-    const [error, setError] = useState(null); // Armazena erros (se houver)
-    const [showModal, setShowModal] = useState(false); // Controle de exibição do modal
-    const [brandToDelete, setBrandToDelete] = useState(null); // Marca selecionada para exclusão
-    const [filteredBrands, setFilteredBrands] = useState([]); // Marcas filtradas
-    const [searchTerm, setSearchTerm] = useState(''); // Termo de busca
+    const [brands, setBrands] = useState([]);
+    const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [brandToDelete, setBrandToDelete] = useState(null);
+    const [filteredBrands, setFilteredBrands] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    // useEffect para fazer o GET quando o componente for montado
     useEffect(() => {
-        // Chama o serviço para listar as brands
         brandService
             .listBrands()
             .then((data) => {
-                setBrands(data); // Atualiza o estado com as brands retornadas pela API
-                setFilteredBrands(data); // Inicialmente, exibir todas as marcas
+                setBrands(data);
+                setFilteredBrands(data);
             })
             .catch((error) => {
-                setError(error.message); // Caso ocorra um erro, atualiza o estado de erro
+                setError(error.message);
             });
-    }, []); // O array vazio significa que o useEffect será chamado apenas uma vez quando o componente for montado
+    }, []);
 
     const handleSearchClick = () => {
         setFilteredBrands(
@@ -49,8 +52,8 @@ const Brands = () => {
         brandService
             .deleteBrand(brandToDelete.id)
             .then(() => {
-                setBrands(brands.filter((b) => b.id !== brandToDelete.id)); // Remove a marca da lista
-                handleCloseModal(); // Fecha o modal
+                setBrands(brands.filter((b) => b.id !== brandToDelete.id));
+                handleCloseModal();
             })
             .catch(() => {
                 setError("Erro ao excluir a marca.");
@@ -58,50 +61,41 @@ const Brands = () => {
             });
     };
 
-    // Exibe mensagem de erro, se houver
     if (error) {
         return <p>Erro ao carregar as brands: {error}</p>;
     }
 
     return (
-
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>
+                    <h3 class="text">
                         Marcas
                     </h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            placeholder="Nome"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                        <input type="text" class="form-control" name="name" placeholder="Nome" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <button type="button"
-                            className="btn btn-primary"
-                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
-                        <a className="btn" href="/brands">limpar busca</a>
+                        <Button variant="primary" onClick={handleSearchClick} className="btn btn-primary">
+                            <SearchIcon />
+                        </Button>
+                        <a class="btn btn-secondary" href="/brands"><FilterAltOffIcon /></a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-6">
-                        <a href="/createbrand" class="btn btn-primary float-end">
-                            <i class="bi bi-plus"></i>
-                            Cadastrar Marca
+                        <a href="/createbrand" class="btn btn-primary">
+                            <AddIcon /> Cadastrar Marca
                         </a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <Table striped bordered hover>
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -118,37 +112,29 @@ const Brands = () => {
                                         <td>{brand.name}</td>
                                         <td>{brand.description}</td>
                                         <td>
-                                            <a href={`/brands/${brand.id}`} className="btn btn-info btn-sm">
-                                                <i className="bi bi-eye">Detalhar</i>
+                                            <a href={`/brands/${brand.id}`} class="btn btn-info btn-sm me-2">
+                                                <VisibilityIcon />
                                             </a>
-                                            <a href={`/brands/${brand.id}/edit`} className="btn btn-warning btn-sm">
-                                                <i className="bi bi-pencil">Editar</i>
+                                            <a href={`/brands/${brand.id}/edit`} class="btn btn-warning btn-sm me-2">
+                                                <EditIcon />
                                             </a>
-                                            <a
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleShowModal(brand);
-                                                }}
-                                                className="btn btn-danger btn-sm"
-                                            >
-                                                <i className="bi bi-trash">Excluir</i>
+                                            <a class="btn btn-danger btn-sm me-2" onClick={(e) => { e.preventDefault(); handleShowModal(brand); }}>
+                                                <DeleteIcon />
                                             </a>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>
+                                    <td colSpan="4" class="text-center">
                                         Nenhuma marca encontrada
                                     </td>
                                 </tr>
                             )}
                         </tbody>
-                    </Table>
+                    </table>
                 </div>
             </div>
-            {/* Modal de Confirmação */}
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmação de Exclusão</Modal.Title>
@@ -167,6 +153,7 @@ const Brands = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+
     );
 };
 
