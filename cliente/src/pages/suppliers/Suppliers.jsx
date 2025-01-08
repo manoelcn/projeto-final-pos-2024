@@ -9,17 +9,28 @@ const Suppliers = () => {
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [supplierDelete, setSupplierDelete] = useState(null);
+    const [filteredSuppliers, setFilteredSuppliers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         suppliersService
             .listSuppliers()
             .then((data) => {
                 setSuppliers(data);
+                setFilteredSuppliers(data);
             })
             .catch((error) => {
                 setError(error.message);
             });
     }, []);
+
+    const handleSearchClick = () => {
+        setFilteredSuppliers(
+            suppliers.filter((supplier) =>
+                supplier.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    };
 
     const handleShowModal = (supplier) => {
         setSupplierDelete(supplier);
@@ -61,8 +72,18 @@ const Suppliers = () => {
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" placeholder="Nome" />
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            placeholder="Nome"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button type="button"
+                            className="btn btn-primary"
+                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
+                        <a className="btn" href="/suppliers">limpar busca</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -86,8 +107,8 @@ const Suppliers = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {suppliers.length > 0 ? (
-                                suppliers.map((supplier) => (
+                            {filteredSuppliers.length > 0 ? (
+                                filteredSuppliers.map((supplier) => (
                                     <tr key={supplier.id}>
                                         <td>{supplier.id}</td>
                                         <td>{supplier.name}</td>

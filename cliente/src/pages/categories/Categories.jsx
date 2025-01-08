@@ -9,17 +9,28 @@ const Categories = () => {
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [categoryDelete, setCategoryDelete] = useState(null);
+    const [filteredCategories, setFilteredCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         categoriesService
             .listCategories()
             .then((data) => {
                 setCategories(data);
+                setFilteredCategories(data);
             })
             .catch((error) => {
                 setError(error.message);
             });
     }, []);
+
+    const handleSearchClick = () => {
+        setFilteredCategories(
+            categories.filter((category) =>
+                category.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    };
 
     const handleShowModal = (category) => {
         setCategoryDelete(category);
@@ -61,8 +72,18 @@ const Categories = () => {
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" placeholder="Nome" />
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            placeholder="Nome"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button type="button"
+                            className="btn btn-primary"
+                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
+                        <a className="btn" href="/categories">limpar busca</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -86,8 +107,8 @@ const Categories = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.length > 0 ? (
-                                categories.map((category) => (
+                            {filteredCategories.length > 0 ? (
+                                filteredCategories.map((category) => (
                                     <tr key={category.id}>
                                         <td>{category.id}</td>
                                         <td>{category.name}</td>
