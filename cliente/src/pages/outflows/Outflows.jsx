@@ -5,12 +5,15 @@ import outflowsService from '../../services/outflowsService';
 const Outflows = () => {
     const [outflows, setOutflows] = useState([]);
     const [error, setError] = useState(null);
+    const [filteredOutflows, setFilteredOutflows] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         outflowsService
             .listOutflows()
             .then((data) => {
                 setOutflows(data);
+                setFilteredOutflows(data);
             })
             .catch((error) => {
                 setError(error.message);
@@ -20,6 +23,14 @@ const Outflows = () => {
     if (error) {
         return <p>Erro ao carregar saídas: {error}</p>
     }
+
+    const handleSearchClick = () => {
+        setFilteredOutflows(
+            outflows.filter((outflow) =>
+                outflow.product.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    };
 
     return (
         <div class="container-fluid">
@@ -33,8 +44,18 @@ const Outflows = () => {
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" placeholder="Nome" />
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="product"
+                            placeholder="Produto"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button type="button"
+                            className="btn btn-primary"
+                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
+                        <a className="btn" href="/outflows">limpar busca</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -59,8 +80,8 @@ const Outflows = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {outflows.length > 0 ? (
-                                outflows.map((outflow) => (
+                            {filteredOutflows.length > 0 ? (
+                                filteredOutflows.map((outflow) => (
                                     <tr key={outflow.id}>
                                         <td>{outflow.id}</td>
                                         <td>{outflow.product}</td>

@@ -5,17 +5,28 @@ import inflowsService from '../../services/inflowsService';
 const Inflows = () => {
     const [inflows, setInflows] = useState([]);
     const [error, setError] = useState(null);
+    const [filteredInflows, setFilteredInflows] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         inflowsService
             .listInflows()
             .then((data) => {
                 setInflows(data);
+                setFilteredInflows(data);
             })
             .catch((error) => {
                 setError(error.message);
             });
     }, []);
+
+    const handleSearchClick = () => {
+        setFilteredInflows(
+            inflows.filter((inflow) =>
+                inflow.product.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    };
 
     if (error) {
         return <p>Erro ao carregar entradas: {error}</p>
@@ -33,8 +44,18 @@ const Inflows = () => {
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" placeholder="Nome" />
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="product"
+                            placeholder="Produto"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button type="button"
+                            className="btn btn-primary"
+                            onClick={handleSearchClick}><i class="bi bi-search"></i></button>
+                        <a className="btn" href="/inflows">limpar busca</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -60,8 +81,8 @@ const Inflows = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {inflows.length > 0 ? (
-                                inflows.map((inflow) => (
+                            {filteredInflows.length > 0 ? (
+                                filteredInflows.map((inflow) => (
                                     <tr key={inflow.id}>
                                         <td>{inflow.id}</td>
                                         <td>{inflow.product}</td>
