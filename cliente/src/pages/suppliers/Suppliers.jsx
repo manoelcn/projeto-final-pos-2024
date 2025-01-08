@@ -66,7 +66,7 @@ const Suppliers = () => {
     }
 
     return (
-        <div class="container-fluid mt-4">
+        <div class="container-fluid mt-4 px-5">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text">
