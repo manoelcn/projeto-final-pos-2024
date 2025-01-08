@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import categoryService from "../../services/categoriesService";
 
@@ -25,17 +27,32 @@ const DetailCategory = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Detalhes da Categoria</h1>
-            {category ? (
-                <div>
-                    <p><strong>Id:</strong> {category.id}</p>
-                    <p><strong>Nome:</strong> {category.name}</p>
-                    <p><strong>Descrição:</strong> {category.description || "Sem descrição"}</p>
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Detalhes da Categoria
+                        </h3>
+                    </div>
+                    <Card>
+
+                        {category ? (
+                            <Card.Body>
+                                <Card.Title>{category.name}</Card.Title>
+                                <Card.Text>
+                                    {category.description}
+                                </Card.Text>
+                                <Button href="/categories" variant="secondary">Voltar</Button>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
                 </div>
-            ) : (
-                <p>Categoria não encontrada</p>
-            )}
+            </div>
         </div>
     );
 };

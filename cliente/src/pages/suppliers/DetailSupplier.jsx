@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import suppliersService from "../../services/suppliersService";
 
@@ -25,17 +27,32 @@ const DetailSupplier = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Detalhes do Fornecedor</h1>
-            {supplier ? (
-                <div>
-                    <p><strong>Id:</strong> {supplier.id}</p>
-                    <p><strong>Nome:</strong> {supplier.name}</p>
-                    <p><strong>Descrição:</strong> {supplier.description || "Sem descrição"}</p>
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Detalhes do Fornecedor
+                        </h3>
+                    </div>
+                    <Card>
+
+                        {supplier ? (
+                            <Card.Body>
+                                <Card.Title>{supplier.name}</Card.Title>
+                                <Card.Text>
+                                    {supplier.description}
+                                </Card.Text>
+                                <Button href="/suppliers" variant="secondary">Voltar</Button>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
                 </div>
-            ) : (
-                <p>Fornecedor não encontrado.</p>
-            )}
+            </div>
         </div>
     )
 };

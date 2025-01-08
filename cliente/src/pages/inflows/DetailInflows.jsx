@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import inflowService from "../../services/inflowsService";
 
@@ -25,17 +27,37 @@ const DetailInflow = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Detalhes da Entrada</h1>
-            {inflow ? (
-                <div>
-                    <p><strong>Fornecedor:</strong> {inflow.supplier}</p>
-                    <p><strong>Quantidade:</strong> {inflow.quantity}</p>
-                    <p><strong>Descrição:</strong> {inflow.description}</p>
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Detalhes da Entrada
+                        </h3>
+                    </div>
+                    <Card>
+                        {inflow ? (
+                            <Card.Body>
+                                <Card.Title>{inflow.product}</Card.Title>
+                                <Card.Text>
+                                    {inflow.description}
+                                </Card.Text>
+                                <Card.Text>
+                                    Fornecedor: {inflow.supplier}
+                                </Card.Text>
+                                <Card.Text>
+                                    Quantidade: {inflow.quantity}
+                                </Card.Text>
+                                <Button href="/inflows" variant="secondary">Voltar</Button>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
                 </div>
-            ) : (
-                <p>Entrada não encontrada.</p>
-            )}
+            </div>
         </div>
     );
 };

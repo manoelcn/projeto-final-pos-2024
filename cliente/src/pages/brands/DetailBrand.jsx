@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom"; // Para obter o ID da URL
 import brandService from "../../services/brandsService"; // Importando o serviço
-import CardText from "react-bootstrap/esm/CardText";
 
 const DetailBrand = () => {
     const { id } = useParams(); // Obtém o ID da URL
