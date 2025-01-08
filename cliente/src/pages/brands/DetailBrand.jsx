@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom"; // Para obter o ID da URL
 import brandService from "../../services/brandsService"; // Importando o serviço
+import CardText from "react-bootstrap/esm/CardText";
 
 const DetailBrand = () => {
     const { id } = useParams(); // Obtém o ID da URL
@@ -26,17 +29,32 @@ const DetailBrand = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Detalhes da Marca</h1>
-            {brand ? (
-                <div>
-                    <p><strong>ID:</strong> {brand.id}</p>
-                    <p><strong>Nome:</strong> {brand.name}</p>
-                    <p><strong>Descrição:</strong> {brand.description || "Sem descrição."}</p>
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Detalhes da Marca
+                        </h3>
+                    </div>
+                    <Card>
+
+                        {brand ? (
+                            <Card.Body>
+                                <Card.Title>{brand.name}</Card.Title>
+                                <Card.Text>
+                                    {brand.description}
+                                </Card.Text>
+                                <Button href="/brands" variant="secondary">Voltar</Button>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
                 </div>
-            ) : (
-                <p>Marca não encontrada.</p>
-            )}
+            </div>
         </div>
     );
 };
