@@ -3,10 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import inflowService from "../../services/inflowsService";
+import productService from "../../services/productsService";
+import suppliersService from "../../services/suppliersService";
 
 const DetailInflow = () => {
     const { id } = useParams();
     const [inflow, setInflow] = useState(null);
+    const [product, setProduct] = useState(null);
+    const [supplier, setSupplier] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -15,6 +19,16 @@ const DetailInflow = () => {
             .getInflowById(id)
             .then((data) => {
                 setInflow(data);
+
+                productService
+                    .getProductById(data.product)
+                    .then((productData) => setProduct(productData))
+                    .catch(() => setError("Erro ao carregar o produto."));
+
+                suppliersService
+                    .getSupplierById(data.supplier)
+                    .then((supplierData) => setSupplier(supplierData))
+                    .catch(() => setError("Erro ao carregar o fornecedor."));
                 setLoading(false);
             })
             .catch((err) => {
@@ -38,15 +52,15 @@ const DetailInflow = () => {
                     <Card>
                         {inflow ? (
                             <Card.Body>
-                                <Card.Title>{inflow.product}</Card.Title>
+                                <Card.Title>{product ? product.title : "Carregando..."}</Card.Title>
                                 <Card.Text>
                                     {inflow.description}
                                 </Card.Text>
                                 <Card.Text>
-                                    Fornecedor: {inflow.supplier}
+                                    <strong>Fornecedor:</strong> {supplier ? supplier.name : "Carregando..."}
                                 </Card.Text>
                                 <Card.Text>
-                                    Quantidade: {inflow.quantity}
+                                    <strong>Quantidade:</strong> {inflow.quantity}
                                 </Card.Text>
                                 <Button href="/inflows" variant="secondary">Voltar</Button>
                             </Card.Body>
