@@ -3,10 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import productService from "../../services/productsService";
+import brandService from "../../services/brandsService";
+import categoryService from "../../services/categoriesService";
 
 const DetailProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [brand, setBrand] = useState(null);
+    const [category, setCategory] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -15,6 +19,15 @@ const DetailProduct = () => {
             .getProductById(id)
             .then((data) => {
                 setProduct(data);
+
+                brandService.getBrandById(data.brand)
+                    .then((brandData) => setBrand(brandData))
+                    .catch(() => setError("Erro ao carregar a marca."));
+
+                categoryService.getCategoryById(data.category)
+                    .then((categoryData) => setCategory(categoryData))
+                    .catch(() => setError("Erro ao carregar a categoria."));
+
                 setLoading(false);
             })
             .catch((err) => {
@@ -44,22 +57,22 @@ const DetailProduct = () => {
                                     {product.description}
                                 </Card.Text>
                                 <Card.Text>
-                                    Marca: {product.brand}
+                                    <strong>Marca:</strong> {brand ? brand.name : "Carregando..."}
                                 </Card.Text>
                                 <Card.Text>
-                                    Categoria: {product.category}
+                                <strong>Categoria:</strong> {category ? category.name : "Carregando..."}
                                 </Card.Text>
                                 <Card.Text>
-                                    Número de Série: {product.serie_number}
+                                <strong>Número de Série:</strong> {product.serie_number}
                                 </Card.Text>
                                 <Card.Text>
-                                    Preço de Custo: R${product.cost_price}
+                                <strong>Preço de Custo:</strong> R${product.cost_price}
                                 </Card.Text>
                                 <Card.Text>
-                                    Preço de Venda: R${product.selling_price}
+                                <strong>Preço de Venda:</strong> R${product.selling_price}
                                 </Card.Text>
                                 <Card.Text>
-                                    Quantidade em Estoque: {product.quantity}
+                                <strong>Quantidade em Estoque:</strong> {product.quantity}
                                 </Card.Text>
                                 <Button href="/products" variant="secondary">Voltar</Button>
                             </Card.Body>

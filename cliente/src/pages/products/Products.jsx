@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import productsService from '../../services/productsService';
+import brandService from "../../services/brandsService";
+import categoryService from "../../services/categoriesService";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,6 +14,8 @@ import { Empty } from "antd";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [productDelete, setProductDelete] = useState(null);
@@ -28,6 +32,20 @@ const Products = () => {
             .catch((error) => {
                 setError(error.message);
             });
+
+        brandService
+            .listBrands()
+            .then((brandData) => {
+                setBrands(brandData);
+            })
+            .catch(() => setError("Erro ao carregar marcas."));
+
+        categoryService
+            .listCategories()
+            .then((categoryData) => {
+                setCategories(categoryData);
+            })
+            .catch(() => setError("Erro ao carregar categorias."));
     }, []);
 
     const handleSearchClick = () => {
@@ -67,37 +85,47 @@ const Products = () => {
     };
 
     if (error) {
-        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! Alguma coisa deu errado :('} /></div>;
     }
 
+    const getBrandName = (brandId) => {
+        const brand = brands.find(b => b.id === brandId);
+        return brand ? brand.name : "Carregando...";
+    };
+
+    const getCategoryName = (categoryId) => {
+        const category = categories.find(c => c.id === categoryId);
+        return category ? category.name : "Carregando...";
+    };
+
     return (
-        <div class="container-fluid mt-4 px-5">
-            <div class="row">
-                <div class="col-md-12">
+        <div className="container-fluid mt-4 px-5">
+            <div className="row">
+                <div className="col-md-12">
                     <h3>Produtos</h3>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="input-group">
+            <div className="row mb-4">
+                <div className="col-md-6">
+                    <div className="input-group">
                         <input type="text" className="form-control" name="title" placeholder="Título" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         <Button variant="primary" onClick={handleSearchClick}>
                             <SearchIcon />
                         </Button>
-                        <a class="btn btn-secondary" href="/products">
+                        <a className="btn btn-secondary" href="/products">
                             <FilterAltOffIcon />
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <a href="/createproduct" class="btn btn-primary">
+                <div className="col-md-6">
+                    <a href="/createproduct" className="btn btn-primary">
                         <AddIcon /> Cadastrar Produto
                     </a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped table-bordered">
+            <div className="row">
+                <div className="col-md-12">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -117,20 +145,20 @@ const Products = () => {
                                     <tr key={product.id}>
                                         <td>{product.id}</td>
                                         <td>{product.title}</td>
-                                        <td>{product.brand}</td>
-                                        <td>{product.category}</td>
+                                        <td>{getBrandName(product.brand)}</td>
+                                        <td>{getCategoryName(product.category)}</td>
                                         <td>{product.cost_price}</td>
                                         <td>{product.selling_price}</td>
                                         <td>{product.serie_number}</td>
                                         <td>{product.quantity}</td>
                                         <td>
-                                            <a href={`/products/${product.id}`} class="btn btn-info btn-sm me-2">
+                                            <a href={`/products/${product.id}`} className="btn btn-info btn-sm me-2">
                                                 <VisibilityIcon />
                                             </a>
-                                            <a href={`/products/${product.id}/edit`} class="btn btn-warning btn-sm me-2">
+                                            <a href={`/products/${product.id}/edit`} className="btn btn-warning btn-sm me-2">
                                                 <EditIcon />
                                             </a>
-                                            <a class="btn btn-danger btn-sm" onClick={(e) => { e.preventDefault(); handleShowModal(product); }}>
+                                            <a className="btn btn-danger btn-sm" onClick={(e) => { e.preventDefault(); handleShowModal(product); }}>
                                                 <DeleteIcon />
                                             </a>
                                         </td>
@@ -138,7 +166,7 @@ const Products = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="9" class="text-center">
+                                    <td colSpan="9" className="text-center">
                                         Nenhum produto encontrado.
                                     </td>
                                 </tr>
