@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams, useNavigate } from "react-router-dom"; // Para obter o ID e redirecionar
 import brandService from "../../services/brandsService"; // Importando o serviço
 
@@ -38,7 +40,7 @@ const EditBrand = () => {
                 setTimeout(() => {
                     setSuccessMessage(null);
                     navigate("/brands"); // Redireciona para a lista de marcas
-                }, 3000);
+                });
             })
             .catch(() => {
                 setError("Erro ao atualizar a marca.");
@@ -49,32 +51,36 @@ const EditBrand = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Atualizar Marca</h1>
-            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Atualizar Marca
+                        </h3>
+                    </div>
+                    <Card>
+                        {brand ? (
+                            <Card.Body>
+                                <form className="form" onSubmit={handleUpdateBrand}>
+                                    <label><strong>Nome</strong></label>
+                                    <input className="form-control" type="text" name="name" value={brand.name} onChange={handleInputChange} required /><br />
+                                    <label><strong>Descrição</strong></label>
+                                    <textarea className="form-control rows" name="description" value={brand.description} onChange={handleInputChange} /><br />
 
-            <form onSubmit={handleUpdateBrand}>
-                <div>
-                    <label>Nome</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={brand.name}
-                        onChange={handleInputChange}
-                        required
-                    />
+                                    <Button type="submit">Atualizar</Button>
+                                </form>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
+                    <br />
+                    <Button href="/brands" variant="secondary">Cancelar e Voltar</Button>
                 </div>
-                <div>
-                    <label>Descrição</label>
-                    <textarea
-                        name="description"
-                        value={brand.description}
-                        onChange={handleInputChange}
-                    ></textarea>
-                </div>
-                <button type="submit">Atualizar</button>
-            </form>
+            </div>
         </div>
     );
 };
