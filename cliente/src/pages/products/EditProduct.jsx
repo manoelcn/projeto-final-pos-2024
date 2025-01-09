@@ -5,6 +5,8 @@ import productService from "../../services/productsService";
 import brandService from "../../services/brandsService";
 import categoryService from "../../services/categoriesService";
 import { useNavigate, useParams } from "react-router-dom";
+import { Empty } from "antd";
+import { Spin } from "antd";
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -21,6 +23,7 @@ const EditProduct = () => {
     });
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
@@ -29,16 +32,19 @@ const EditProduct = () => {
             .getProductById(id)
             .then((data) => setProduct(data))
             .catch(() => setError("Erro ao carregar os detalhes do produto."));
+        setLoading(false);
 
         brandService
             .listBrands()
             .then((data) => setBrands(data))
             .catch((err) => console.error("Erro ao carregar marcas", err));
+        setLoading(false);
 
         categoryService
             .listCategories()
             .then((data) => setCategories(data))
             .catch((err) => console.error("Erro ao carregar categorias", err));
+        setLoading(false);
     }, [id]);
 
     const handleInputChange = (e) => {
@@ -62,7 +68,8 @@ const EditProduct = () => {
             });
     };
 
-    if (error) return <p style={{ color: "red" }}>{error}</p>;
+    if (loading) return <div className="container-fluid mt-4 px-5 text-center"><Spin /></div>;
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">
