@@ -68,10 +68,10 @@ const DetailProduct = () => {
                                 <strong>Número de Série:</strong> {product.serie_number}
                                 </Card.Text>
                                 <Card.Text>
-                                <strong>Preço de Custo:</strong> R${product.cost_price}
+                                <strong>Preço de Custo:</strong> R$ {product.cost_price}
                                 </Card.Text>
                                 <Card.Text>
-                                <strong>Preço de Venda:</strong> R${product.selling_price}
+                                <strong>Preço de Venda:</strong> R$ {product.selling_price}
                                 </Card.Text>
                                 <Card.Text>
                                 <strong>Quantidade em Estoque:</strong> {product.quantity}

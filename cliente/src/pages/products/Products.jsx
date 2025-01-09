@@ -147,8 +147,8 @@ const Products = () => {
                                         <td>{product.title}</td>
                                         <td>{getBrandName(product.brand)}</td>
                                         <td>{getCategoryName(product.category)}</td>
-                                        <td>{product.cost_price}</td>
-                                        <td>{product.selling_price}</td>
+                                        <td>R$ {product.cost_price}</td>
+                                        <td>R$ {product.selling_price}</td>
                                         <td>{product.serie_number}</td>
                                         <td>{product.quantity}</td>
                                         <td>
