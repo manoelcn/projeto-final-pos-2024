@@ -34,11 +34,12 @@ const Outflows = () => {
     }, []);
 
     const handleSearchClick = () => {
-        setFilteredOutflows(
-            outflows.filter((outflow) =>
-                outflow.product.toString().toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        );
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const filtered = outflows.filter((outflow) => {
+            const product = products.find((product) => product.id === outflow.product);
+            return product && product.title.toLowerCase().includes(lowerCaseSearchTerm);
+        });
+        setFilteredOutflows(filtered);
     };
 
     function formatarData(Data) {
@@ -64,16 +65,23 @@ const Outflows = () => {
     };
 
     return (
-        <div class="container-fluid mt-4 px-5">
-            <div class="row">
-                <div class="col-md-12">
+        <div className="container-fluid mt-4 px-5">
+            <div className="row">
+                <div className="col-md-12">
                     <h3>Saídas</h3>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input type="text" className="form-control" name="search" placeholder="Produto" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <div className="row mb-4">
+                <div className="col-md-6">
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="search"
+                            placeholder="Produto"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                         <button type="button" className="btn btn-primary" onClick={handleSearchClick}>
                             <SearchIcon />
                         </button>
@@ -82,15 +90,15 @@ const Outflows = () => {
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <a href="/createoutflow" class="btn btn-primary">
+                <div className="col-md-6">
+                    <a href="/createoutflow" className="btn btn-primary">
                         <AddIcon /> Cadastrar Saída
                     </a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped table-bordered">
+            <div className="row">
+                <div className="col-md-12">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -109,7 +117,7 @@ const Outflows = () => {
                                         <td>{outflow.quantity}</td>
                                         <td>{formatarData(outflow.created_at)}</td>
                                         <td>
-                                            <a href={`outflows/${outflow.id}`} class="btn btn-info btn-sm">
+                                            <a href={`outflows/${outflow.id}`} className="btn btn-info btn-sm">
                                                 <VisibilityIcon />
                                             </a>
                                         </td>
@@ -117,7 +125,7 @@ const Outflows = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" class="text-center">
+                                    <td colSpan="5" className="text-center">
                                         Nenhuma saída encontrada.
                                     </td>
                                 </tr>

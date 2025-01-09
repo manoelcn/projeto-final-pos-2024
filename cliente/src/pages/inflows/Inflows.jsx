@@ -44,9 +44,10 @@ const Inflows = () => {
 
     const handleSearchClick = () => {
         setFilteredInflows(
-            inflows.filter((inflow) =>
-                inflow.product.toString().toLowerCase().includes(searchTerm.toLowerCase())
-            )
+            inflows.filter((inflow) => {
+                const product = products.find((p) => p.id === inflow.product);
+                return product?.title.toLowerCase().includes(searchTerm.toLowerCase());
+            })
         );
     };
 
@@ -58,7 +59,7 @@ const Inflows = () => {
     const getSupplierName = (supplierId) => {
         const supplier = suppliers.find(b => b.id === supplierId);
         return supplier ? supplier.name : "Carregando...";
-    }
+    };
 
     function formatarData(Data) {
         const data = new Date(Data);
@@ -71,7 +72,7 @@ const Inflows = () => {
         const segundos = data.getSeconds().toString().padStart(2, '0');
 
         return `${dia}/${mes}/${ano} ${horas}h:${minutos}m:${segundos}s`;
-    };
+    }
 
     if (error) {
         return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
@@ -87,8 +88,19 @@ const Inflows = () => {
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" className="form-control" name="search" placeholder="Produto" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                        <button type="button" className="btn btn-primary" onClick={handleSearchClick}>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="search"
+                            placeholder="Produto"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleSearchClick}
+                        >
                             <SearchIcon />
                         </button>
                         <a className="btn btn-secondary" href="/inflows">
