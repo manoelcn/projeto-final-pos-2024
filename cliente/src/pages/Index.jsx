@@ -1,27 +1,17 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 
 const Index = () => {
     return (
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="text-center">
-                        Alguma coisa aqui
-                    </h3>
+        <div className="container-fluid d-flex align-items-center justify-content-center" style={{ minHeight: '50vh' }}>
+            <div className="text-center">
+                <div className="page-header">
+                    <h1 style={{ fontSize: '3.5em' }}>
+                        Seu estoque, na palma da mão!
+                    </h1>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>
-                        Dashboard (eu acho)
-                    </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>
-                    Dashboard 2 (eu acho)
-                    </h3>
-                </div>
+                <h2 style={{ fontSize: '1.5em' }}>
+                    Controle seu estoque com eficiência e simplicidade – tudo o que você precisa em um só lugar!
+                </h2>
             </div>
         </div>
     )
