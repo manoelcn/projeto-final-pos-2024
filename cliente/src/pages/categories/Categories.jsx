@@ -53,7 +53,11 @@ const Categories = () => {
         categoriesService
             .deleteCategory(categoryDelete.id)
             .then(() => {
-                setCategories(categories.filter((c) => c.id !== categoryDelete.id));
+                const updatedCategories = categories.filter((c) => c.id !== categoryDelete.id);
+                setCategories(updatedCategories);
+                setFilteredCategories(updatedCategories.filter((category) =>
+                    category.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+                ));
                 handleCloseModal();
             })
             .catch(() => {

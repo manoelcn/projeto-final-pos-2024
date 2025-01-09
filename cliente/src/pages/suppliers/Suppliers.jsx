@@ -53,7 +53,11 @@ const Suppliers = () => {
         suppliersService
             .deleteSupplier(supplierDelete.id)
             .then(() => {
-                setSuppliers(suppliers.filter((s) => s.id !== supplierDelete.id));
+                const updateSuppliers = suppliers.filter((s) => s.id !== supplierDelete.id);
+                setSuppliers(updateSuppliers);
+                setFilteredSuppliers(updateSuppliers.filter((supplier) =>
+                    supplier.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ));
                 handleCloseModal();
             })
             .catch(() => {
