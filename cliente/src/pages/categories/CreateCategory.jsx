@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import categoryService from "../../services/categoriesService";
 
@@ -26,34 +28,32 @@ const CreateCategory = () => {
     };
 
     return (
-        <div>
-            <h1>Criar Nova Categoria</h1>
-            {error && <p style={{ color: "red" }}>Erro: {error}</p>}
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Cadastrar Categoria
+                        </h3>
+                    </div>
+                    <Card>
+                        <Card.Body>
+                            <form onSubmit={handleCreateCategory}>
 
-            <form onSubmit={handleCreateCategory}>
-                <div>
-                    <label>Nome:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Nome da categoria"
-                        value={newCategory.name}
-                        onChange={handleInputChange}
-                        required
-                    />
+                                <label><strong>Nome</strong></label>
+                                <input className="form-control" type="text" name="name" placeholder="Nome da categoria" value={newCategory.name} onChange={handleInputChange} required /><br />
+
+                                <label><strong>Descrição</strong></label>
+                                <textarea className="form-control" name="description" placeholder="Descrição da categoria" value={newCategory.description} onChange={handleInputChange} required /><br />
+
+                                <Button type="submit">Criar</Button>
+                            </form>
+                        </Card.Body>
+                    </Card>
+                    <br />
+                    <Button href="/categories" variant="secondary">Cancelar e Voltar</Button>
                 </div>
-                <div>
-                    <label>Descrição:</label>
-                    <textarea
-                        name="description"
-                        placeholder="Descrição da categoria"
-                        value={newCategory.description}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Criar</button>
-            </form>
+            </div>
         </div>
     );
 };
