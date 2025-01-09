@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import productService from "../../services/productsService";
 import brandService from "../../services/brandsService";
 import categoryService from "../../services/categoriesService";
+import { Empty } from "antd";
 
 const CreateProduct = () => {
     const [productData, setProductData] = useState({
@@ -49,6 +50,8 @@ const CreateProduct = () => {
             })
             .catch((err) => setError(err.message));
     };
+
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

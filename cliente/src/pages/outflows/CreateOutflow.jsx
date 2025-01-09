@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import productService from "../../services/productsService";
 import outflowService from "../../services/outflowsService";
+import { Empty } from "antd";
 
 const CreateOutflow = () => {
     const [outflowData, setOutflowData] = useState({
@@ -38,6 +39,9 @@ const CreateOutflow = () => {
             .catch((err) => setError(err.message));
     };
 
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
+
+
     return (
         <div>
             <div class="container-fluid mt-4 px-5">
@@ -52,22 +56,22 @@ const CreateOutflow = () => {
                             <Card.Body>
                                 <form onSubmit={handleCreateOutflow}>
 
-                                        <label><strong>Quantidade</strong></label>
-                                        <input className="form-control" type="number" name="quantity" placeholder="Quantidade" value={outflowData.quantity || ""} onChange={handleInputChange} required /><br />
+                                    <label><strong>Quantidade</strong></label>
+                                    <input className="form-control" type="number" name="quantity" placeholder="Quantidade" value={outflowData.quantity || ""} onChange={handleInputChange} required /><br />
 
-                                        <label><strong>Descrição</strong></label>
-                                        <textarea className="form-control" name="description" placeholder="Descrição da saída" value={outflowData.description} onChange={handleInputChange} required /><br />                       
-                                        <label><strong>Produto</strong></label>
-                                        <select className="form-control" name="product" value={outflowData.product || ""} onChange={handleInputChange} required>
-                                            <option value="" disabled>
-                                                Selecione um produto
+                                    <label><strong>Descrição</strong></label>
+                                    <textarea className="form-control" name="description" placeholder="Descrição da saída" value={outflowData.description} onChange={handleInputChange} required /><br />
+                                    <label><strong>Produto</strong></label>
+                                    <select className="form-control" name="product" value={outflowData.product || ""} onChange={handleInputChange} required>
+                                        <option value="" disabled>
+                                            Selecione um produto
+                                        </option>
+                                        {products.map((product) => (
+                                            <option key={product.id} value={product.id}>
+                                                {product.title}
                                             </option>
-                                            {products.map((product) => (
-                                                <option key={product.id} value={product.id}>
-                                                    {product.title}
-                                                </option>
-                                            ))}
-                                        </select><br />
+                                        ))}
+                                    </select><br />
                                     <Button type="submit">Criar</Button>
                                 </form>
                             </Card.Body>

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom"; // Importando o useNavigate
 import brandService from "../../services/brandsService"; // Importando o serviço de brands
+import { Empty } from "antd";
 
 const CreateBrand = () => {
     const [newBrand, setNewBrand] = useState({ name: "", description: "" }); // Estado para nome e descrição
@@ -26,6 +27,8 @@ const CreateBrand = () => {
                 setError(err.message); // Exibe mensagem de erro
             });
     };
+
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

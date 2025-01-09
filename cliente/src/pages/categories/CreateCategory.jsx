@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import categoryService from "../../services/categoriesService";
+import { Empty } from "antd";
 
 const CreateCategory = () => {
     const [newCategory, setNewCategory] = useState({ name: "", description: "" });
@@ -26,6 +27,8 @@ const CreateCategory = () => {
                 setError(err.message);
             });
     };
+
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import suppliersService from "../../services/suppliersService";
+import { Empty } from "antd";
 
 const CreateSupplier = () => {
     const [newSupplier, setNewSupplier] = useState({ name: "", description: "" });
@@ -26,6 +27,8 @@ const CreateSupplier = () => {
                 setError(err.message);
             });
     };
+
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import suppliersService from "../../services/suppliersService";
 import productService from "../../services/productsService";
 import inflowService from "../../services/inflowsService";
+import { Empty } from "antd";
 
 const CreateInflow = () => {
     const [inflowData, setInflowData] = useState({
@@ -45,6 +46,8 @@ const CreateInflow = () => {
             })
             .catch((err) => setError(err.message));
     };
+
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div>
