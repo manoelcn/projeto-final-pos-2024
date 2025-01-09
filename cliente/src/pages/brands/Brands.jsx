@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
+import { Empty } from "antd";
 
 const Brands = () => {
     const [brands, setBrands] = useState([]);
@@ -62,7 +63,7 @@ const Brands = () => {
     };
 
     if (error) {
-        return <p>Erro ao carregar as brands: {error}</p>;
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
 
     return (
@@ -127,7 +128,7 @@ const Brands = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="4" class="text-center">
-                                        Nenhuma marca encontrada
+                                        Nenhuma marca encontrada.
                                     </td>
                                 </tr>
                             )}

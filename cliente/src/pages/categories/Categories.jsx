@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
+import { Empty } from "antd";
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -62,7 +63,7 @@ const Categories = () => {
     };
 
     if (error) {
-        return <p>Erro ao carregar as categorias: {error}</p>;
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
 
     return (
@@ -128,7 +129,7 @@ const Categories = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="4" class="text-center">
-                                        Nenhuma categoria encontrada
+                                        Nenhuma categoria encontrada.
                                     </td>
                                 </tr>
                             )}

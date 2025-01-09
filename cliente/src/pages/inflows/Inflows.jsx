@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
+import { Empty } from "antd";
 
 const Inflows = () => {
     const [inflows, setInflows] = useState([]);
@@ -32,7 +33,7 @@ const Inflows = () => {
     };
 
     if (error) {
-        return <p>Erro ao carregar entradas: {error}</p>
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
 
     return (
@@ -92,7 +93,7 @@ const Inflows = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="6" class="text-center">
-                                        Nenhuma entrada encontrada
+                                        Nenhuma entrada encontrada.
                                     </td>
                                 </tr>
                             )}

@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
+import { Empty } from "antd";
 
 const Suppliers = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -62,7 +63,7 @@ const Suppliers = () => {
     };
 
     if (error) {
-        return <p>Erro ao carregar fornecedores: {error}</p>;
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
 
     return (
@@ -128,7 +129,7 @@ const Suppliers = () => {
                             ) : (
                                 <tr>
                                     <td colSpan="4" class="text-center">
-                                        Nenhum fornecedor encontrado
+                                        Nenhum fornecedor encontrado.
                                     </td>
                                 </tr>
                             )}
