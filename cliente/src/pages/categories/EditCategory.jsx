@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useParams, useNavigate } from "react-router-dom";
 import categoryService from "../../services/categoriesService";
 
@@ -37,7 +39,7 @@ const EditCategory = () => {
                 setTimeout(() => {
                     setSuccessMessage(null);
                     navigate("/categories");
-                }, 1000);
+                });
             })
             .catch(() => {
                 setError("Erro ao atualizar a categoria.");
@@ -48,32 +50,36 @@ const EditCategory = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Atualizar Categoria</h1>
-            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Atualizar Categoria
+                        </h3>
+                    </div>
+                    <Card>
+                        {category ? (
+                            <Card.Body>
+                                <form className="form" onSubmit={handleUpdateCategory}>
+                                    <label><strong>Nome</strong></label>
+                                    <input className="form-control" type="text" name="name" value={category.name} onChange={handleInputChange} required /><br />
+                                    <label><strong>Descrição</strong></label>
+                                    <textarea className="form-control rows" name="description" value={category.description} onChange={handleInputChange} /><br />
 
-            <form onSubmit={handleUpdateCategory}>
-                <div>
-                    <label>Nome</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={category.name}
-                        onChange={handleInputChange}
-                        required
-                    />
+                                    <Button type="submit">Atualizar</Button>
+                                </form>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
+                    <br />
+                    <Button href="/categories" variant="secondary">Cancelar e Voltar</Button>
                 </div>
-                <div>
-                    <label>Descrição</label>
-                    <textarea
-                        name="description"
-                        value={category.description}
-                        onChange={handleInputChange}
-                    ></textarea>
-                </div>
-                <button type="submit">Atualizar</button>
-            </form>
+            </div>
         </div>
     )
 };
