@@ -51,15 +51,12 @@ const CreateOutflow = () => {
                         <Card>
                             <Card.Body>
                                 <form onSubmit={handleCreateOutflow}>
-                                    <div>
+
                                         <label><strong>Quantidade</strong></label>
                                         <input className="form-control" type="number" name="quantity" placeholder="Quantidade" value={outflowData.quantity || ""} onChange={handleInputChange} required /><br />
-                                    </div>
-                                    <div>
+
                                         <label><strong>Descrição</strong></label>
-                                        <textarea className="form-control" name="description" placeholder="Descrição da saída" value={outflowData.description} onChange={handleInputChange} required /><br />
-                                    </div>
-                                    <div>
+                                        <textarea className="form-control" name="description" placeholder="Descrição da saída" value={outflowData.description} onChange={handleInputChange} required /><br />                       
                                         <label><strong>Produto</strong></label>
                                         <select className="form-control" name="product" value={outflowData.product || ""} onChange={handleInputChange} required>
                                             <option value="" disabled>
@@ -71,7 +68,6 @@ const CreateOutflow = () => {
                                                 </option>
                                             ))}
                                         </select><br />
-                                    </div>
                                     <Button type="submit">Criar</Button>
                                 </form>
                             </Card.Body>

@@ -32,7 +32,7 @@ const DetailOutflow = () => {
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <h3 class="text">
-                            Detalhes do Fornecedor
+                            Detalhes da Saída
                         </h3>
                     </div>
                     <Card>
