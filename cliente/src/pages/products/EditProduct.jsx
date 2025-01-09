@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import productService from "../../services/productsService";
 import brandService from "../../services/brandsService";
 import categoryService from "../../services/categoriesService";
@@ -44,7 +46,7 @@ const EditProduct = () => {
         setProduct({ ...product, [name]: value });
     };
 
-    const handleUpdate = (e) => {
+    const handleUpdateProduct = (e) => {
         e.preventDefault();
         productService
             .updateProduct(id, product)
@@ -53,7 +55,7 @@ const EditProduct = () => {
                 setTimeout(() => {
                     setSuccessMessage(null);
                     navigate("/products");
-                }, 1000);
+                });
             })
             .catch(() => {
                 setError("Erro ao atualizar o produto.");
@@ -63,112 +65,73 @@ const EditProduct = () => {
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div>
-            <h1>Atualizar Produto</h1>
-            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Atualizar Fornecedor
+                        </h3>
+                    </div>
+                    <Card>
+                        {product ? (
+                            <Card.Body>
+                                <form className="form row" onSubmit={handleUpdateProduct}>
+                                    <div class="col-md-6">
+                                        <label><strong>Título</strong></label>
+                                        <input className="form-control" type="text" name="title" value={product.title} onChange={handleInputChange} required /><br />
 
-            <form onSubmit={handleUpdate}>
-                <div>
-                    <label>Título:</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={product.title}
-                        onChange={handleInputChange}
-                        required
-                    />
+                                        <label><strong>Descrição</strong></label>
+                                        <textarea className="form-control" name="description" value={product.description} onChange={handleInputChange} required /><br />
+
+                                        <label><strong>Número de Série</strong></label>
+                                        <input className="form-control" type="text" name="serie_number" value={product.serie_number} onChange={handleInputChange} /><br />
+
+                                        <label><strong>Preço de Custo</strong></label>
+                                        <input className="form-control" type="number" name="cost_price" value={product.cost_price} onChange={handleInputChange} required /><br />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label><strong>Preço de Venda</strong></label>
+                                        <input className="form-control" type="number" name="selling_price" value={product.selling_price} onChange={handleInputChange} required /><br />
+
+                                        <label><strong>Quantidade</strong></label>
+                                        <input className="form-control" type="number" name="quantity" value={product.quantity} onChange={handleInputChange} required /><br />
+
+                                        <label><strong>Marca</strong></label>
+                                        <select className="form-control" name="brand" value={product.brand} onChange={handleInputChange} required>
+                                            <option value="">Selecione uma marca</option>
+                                            {brands.map((brand) => (
+                                                <option key={brand.id} value={brand.id}>
+                                                    {brand.name}
+                                                </option>
+                                            ))}
+                                        </select><br />
+
+                                        <label><strong>Categoria</strong></label>
+                                        <select className="form-control" name="category" value={product.category} onChange={handleInputChange} required>
+                                            <option value="">Selecione uma categoria</option>
+                                            {categories.map((category) => (
+                                                <option key={category.id} value={category.id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select><br />
+                                    </div>
+                                    <div>
+                                        <Button type="submit">Atualizar</Button>
+                                    </div>
+                                </form>
+                            </Card.Body>
+                        ) : (
+                            <CardText>
+                                Nenhuma informação encontrada!
+                            </CardText>
+                        )}
+                    </Card>
+                    <br />
+                    <Button href="/products" variant="secondary">Cancelar e Voltar</Button>
                 </div>
-
-                <div>
-                    <label>Descrição:</label>
-                    <textarea
-                        name="description"
-                        value={product.description}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Número de Série:</label>
-                    <input
-                        type="text"
-                        name="serie_number"
-                        value={product.serie_number}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div>
-                    <label>Preço de Custo:</label>
-                    <input
-                        type="number"
-                        name="cost_price"
-                        value={product.cost_price}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Preço de Venda:</label>
-                    <input
-                        type="number"
-                        name="selling_price"
-                        value={product.selling_price}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Quantidade:</label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        value={product.quantity}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Marca:</label>
-                    <select
-                        name="brand"
-                        value={product.brand}
-                        onChange={handleInputChange}
-                        required
-                    >
-                        <option value="">Selecione uma marca</option>
-                        {brands.map((brand) => (
-                            <option key={brand.id} value={brand.id}>
-                                {brand.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div>
-                    <label>Categoria:</label>
-                    <select
-                        name="category"
-                        value={product.category}
-                        onChange={handleInputChange}
-                        required
-                    >
-                        <option value="">Selecione uma categoria</option>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <button type="submit">Atualizar Produto</button>
-            </form>
+            </div>
         </div>
     );
 };
