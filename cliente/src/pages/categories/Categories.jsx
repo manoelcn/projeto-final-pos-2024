@@ -56,7 +56,7 @@ const Categories = () => {
                 const updatedCategories = categories.filter((c) => c.id !== categoryDelete.id);
                 setCategories(updatedCategories);
                 setFilteredCategories(updatedCategories.filter((category) =>
-                    category.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+                    category.name.toLowerCase().includes(searchTerm.toLowerCase())
                 ));
                 handleCloseModal();
             })
