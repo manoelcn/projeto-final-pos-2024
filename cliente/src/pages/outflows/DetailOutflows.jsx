@@ -3,10 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import outflowService from "../../services/outflowsService";
+import productService from "../../services/productsService";
 
 const DetailOutflow = () => {
     const { id } = useParams();
     const [outflow, setOutflow] = useState(null);
+    const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -15,6 +17,12 @@ const DetailOutflow = () => {
             .getOutflowById(id)
             .then((data) => {
                 setOutflow(data);
+
+                productService
+                    .getProductById(data.product)
+                    .then((productData) => setProduct(productData))
+                    .catch(() => setError("Erro ao carregar o produto."));
+
                 setLoading(false);
             })
             .catch((err) => {
@@ -38,15 +46,12 @@ const DetailOutflow = () => {
                     <Card>
                         {outflow ? (
                             <Card.Body>
-                                <Card.Title>{outflow.product}</Card.Title>
+                                <Card.Title>{product ? product.title : "Carregando..."}</Card.Title>
                                 <Card.Text>
                                     {outflow.description}
                                 </Card.Text>
                                 <Card.Text>
-                                    Produto: {outflow.product}
-                                </Card.Text>
-                                <Card.Text>
-                                    Quantidade: {outflow.quantity}
+                                    <strong>Quantidade:</strong> {outflow.quantity}
                                 </Card.Text>
                                 <Button href="/outflows" variant="secondary">Voltar</Button>
                             </Card.Body>
