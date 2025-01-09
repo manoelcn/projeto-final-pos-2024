@@ -53,7 +53,11 @@ const Brands = () => {
         brandService
             .deleteBrand(brandToDelete.id)
             .then(() => {
-                setBrands(brands.filter((b) => b.id !== brandToDelete.id));
+                const updateBrands = brands.filter((b) => b.id !== brandToDelete.id);
+                setBrands(updateBrands);
+                setFilteredBrands(updateBrands.filter((brand) =>
+                    brand.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ));
                 handleCloseModal();
             })
             .catch(() => {
