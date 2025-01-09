@@ -94,7 +94,7 @@ const CreateInflow = () => {
                                 </Card.Body>
                             </Card>
                             <br />
-                            <Button href="/brands" variant="secondary">Cancelar e Voltar</Button>
+                            <Button href="/inflows" variant="secondary">Cancelar e Voltar</Button>
                         </div>
                     </div>
                 </div>

@@ -73,7 +73,7 @@ const CreateOutflow = () => {
                             </Card.Body>
                         </Card>
                         <br />
-                        <Button href="/brands" variant="secondary">Cancelar e Voltar</Button>
+                        <Button href="/outflows" variant="secondary">Cancelar e Voltar</Button>
                     </div>
                 </div>
             </div>
