@@ -70,7 +70,7 @@ const EditProduct = () => {
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <h3 class="text">
-                            Atualizar Fornecedor
+                            Atualizar Produto
                         </h3>
                     </div>
                     <Card>

@@ -32,7 +32,7 @@ const DetailProduct = () => {
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <h3 class="text">
-                            Detalhes do Fornecedor
+                            Detalhes do Produto
                         </h3>
                     </div>
                     <Card>
