@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom";
 import categoryService from "../../services/categoriesService";
+import { Empty } from "antd";
+import { Spin } from "antd";
 
 const DetailCategory = () => {
     const { id } = useParams();
@@ -23,8 +25,8 @@ const DetailCategory = () => {
             });
     }, [id]);
 
-    if (loading) return <p>Carregando...</p>;
-    if (error) return <p style={{ color: "red" }}>{error}</p>;
+    if (loading) return <div className="container-fluid mt-4 px-5 text-center"><Spin  /></div>;
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

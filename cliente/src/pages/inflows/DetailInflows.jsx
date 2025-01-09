@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import inflowService from "../../services/inflowsService";
 import productService from "../../services/productsService";
 import suppliersService from "../../services/suppliersService";
+import { Empty } from "antd";
+import { Spin } from "antd";
 
 const DetailInflow = () => {
     const { id } = useParams();
@@ -37,8 +39,8 @@ const DetailInflow = () => {
             });
     }, [id]);
 
-    if (loading) return <p>Carregando...</p>;
-    if (error) return <p style={{ color: "red" }}>{error}</p>;
+    if (loading) return <div className="container-fluid mt-4 px-5 text-center"><Spin /></div>;
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">

@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useParams } from "react-router-dom"; // Para obter o ID da URL
 import brandService from "../../services/brandsService"; // Importando o serviço
+import { Empty } from "antd";
+import { Spin } from "antd";
 
 const DetailBrand = () => {
     const { id } = useParams(); // Obtém o ID da URL
@@ -24,8 +26,8 @@ const DetailBrand = () => {
             });
     }, [id]);
 
-    if (loading) return <p>Carregando...</p>;
-    if (error) return <p style={{ color: "red" }}>{error}</p>;
+    if (loading) return <div className="container-fluid mt-4 px-5 text-center"><Spin /></div>;
+    if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
     return (
         <div class="container-fluid mt-4 px-5">
