@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import outflowsService from '../../services/outflowsService';
+import productsService from '../../services/productsService';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,6 +9,7 @@ import { Empty } from "antd";
 
 const Outflows = () => {
     const [outflows, setOutflows] = useState([]);
+    const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const [filteredOutflows, setFilteredOutflows] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -22,6 +24,13 @@ const Outflows = () => {
             .catch((error) => {
                 setError(error.message);
             });
+
+        productsService
+            .listProducts()
+            .then((productData) => {
+                setProducts(productData);
+            })
+            .catch(() => setError("Erro ao carregar produtos."));
     }, []);
 
     const handleSearchClick = () => {
@@ -35,6 +44,11 @@ const Outflows = () => {
     if (error) {
         return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
+
+    const getProductName = (productId) => {
+        const product = products.find(b => b.id === productId);
+        return product ? product.title : "Carregando...";
+    };
 
     return (
         <div class="container-fluid mt-4 px-5">
@@ -78,7 +92,7 @@ const Outflows = () => {
                                 filteredOutflows.map((outflow) => (
                                     <tr key={outflow.id}>
                                         <td>{outflow.id}</td>
-                                        <td>{outflow.product}</td>
+                                        <td>{getProductName(outflow.product)}</td>
                                         <td>{outflow.quantity}</td>
                                         <td>{outflow.created_at}</td>
                                         <td>

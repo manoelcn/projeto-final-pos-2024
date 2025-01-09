@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import inflowsService from '../../services/inflowsService';
+import productsService from '../../services/productsService';
+import suppliersService from '../../services/suppliersService';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,6 +10,8 @@ import { Empty } from "antd";
 
 const Inflows = () => {
     const [inflows, setInflows] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [suppliers, setSuppliers] = useState([]);
     const [error, setError] = useState(null);
     const [filteredInflows, setFilteredInflows] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -22,6 +26,20 @@ const Inflows = () => {
             .catch((error) => {
                 setError(error.message);
             });
+
+        productsService
+            .listProducts()
+            .then((productData) => {
+                setProducts(productData);
+            })
+            .catch(() => setError("Erro ao carregar produtos."));
+
+        suppliersService
+            .listSuppliers()
+            .then((supplierData) => {
+                setSuppliers(supplierData);
+            })
+            .catch(() => setError("Erro ao carregar fornecedores."));
     }, []);
 
     const handleSearchClick = () => {
@@ -34,6 +52,16 @@ const Inflows = () => {
 
     if (error) {
         return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
+    }
+
+    const getProductName = (productId) => {
+        const product = products.find(b => b.id === productId);
+        return product ? product.title : "Carregando...";
+    };
+
+    const getSupplierName = (supplierId) => {
+        const supplier = suppliers.find(b => b.id === supplierId);
+        return supplier ? supplier.name : "Carregando...";
     }
 
     return (
@@ -79,8 +107,8 @@ const Inflows = () => {
                                 filteredInflows.map((inflow) => (
                                     <tr key={inflow.id}>
                                         <td>{inflow.id}</td>
-                                        <td>{inflow.product}</td>
-                                        <td>{inflow.supplier}</td>
+                                        <td>{getProductName(inflow.product)}</td>
+                                        <td>{getSupplierName(inflow.supplier)}</td>
                                         <td>{inflow.quantity}</td>
                                         <td>{inflow.created_at}</td>
                                         <td>
