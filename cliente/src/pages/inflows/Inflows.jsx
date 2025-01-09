@@ -50,10 +50,6 @@ const Inflows = () => {
         );
     };
 
-    if (error) {
-        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
-    }
-
     const getProductName = (productId) => {
         const product = products.find(b => b.id === productId);
         return product ? product.title : "Carregando...";
@@ -62,6 +58,23 @@ const Inflows = () => {
     const getSupplierName = (supplierId) => {
         const supplier = suppliers.find(b => b.id === supplierId);
         return supplier ? supplier.name : "Carregando...";
+    }
+
+    function formatarData(Data) {
+        const data = new Date(Data);
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+        const ano = data.getFullYear();
+
+        const horas = data.getHours().toString().padStart(2, '0');
+        const minutos = data.getMinutes().toString().padStart(2, '0');
+        const segundos = data.getSeconds().toString().padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}h:${minutos}m:${segundos}s`;
+    };
+
+    if (error) {
+        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
 
     return (
@@ -110,7 +123,7 @@ const Inflows = () => {
                                         <td>{getProductName(inflow.product)}</td>
                                         <td>{getSupplierName(inflow.supplier)}</td>
                                         <td>{inflow.quantity}</td>
-                                        <td>{inflow.created_at}</td>
+                                        <td>{formatarData(inflow.created_at)}</td>
                                         <td>
                                             <a href={`inflows/${inflow.id}`} class="btn btn-info btn-sm">
                                                 <VisibilityIcon />

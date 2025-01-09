@@ -41,6 +41,19 @@ const Outflows = () => {
         );
     };
 
+    function formatarData(Data) {
+        const data = new Date(Data);
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+        const ano = data.getFullYear();
+
+        const horas = data.getHours().toString().padStart(2, '0');
+        const minutos = data.getMinutes().toString().padStart(2, '0');
+        const segundos = data.getSeconds().toString().padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}h:${minutos}m:${segundos}s`;
+    };
+
     if (error) {
         return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
     }
@@ -94,7 +107,7 @@ const Outflows = () => {
                                         <td>{outflow.id}</td>
                                         <td>{getProductName(outflow.product)}</td>
                                         <td>{outflow.quantity}</td>
-                                        <td>{outflow.created_at}</td>
+                                        <td>{formatarData(outflow.created_at)}</td>
                                         <td>
                                             <a href={`outflows/${outflow.id}`} class="btn btn-info btn-sm">
                                                 <VisibilityIcon />

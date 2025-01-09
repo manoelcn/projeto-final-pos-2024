@@ -39,6 +39,19 @@ const DetailInflow = () => {
             });
     }, [id]);
 
+    function formatarData(Data) {
+        const data = new Date(Data);
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+        const ano = data.getFullYear();
+
+        const horas = data.getHours().toString().padStart(2, '0');
+        const minutos = data.getMinutes().toString().padStart(2, '0');
+        const segundos = data.getSeconds().toString().padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}h:${minutos}m:${segundos}s`;
+    };
+
     if (loading) return <div className="container-fluid mt-4 px-5 text-center"><Spin /></div>;
     if (error) return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
 
@@ -63,6 +76,9 @@ const DetailInflow = () => {
                                 </Card.Text>
                                 <Card.Text>
                                     <strong>Quantidade:</strong> {inflow.quantity}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Data:</strong> {formatarData(inflow.created_at)}
                                 </Card.Text>
                                 <Button href="/inflows" variant="secondary">Voltar</Button>
                             </Card.Body>
