@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom"; // Importando o useNavigate
 import brandService from "../../services/brandsService"; // Importando o serviço de brands
 
@@ -26,34 +28,33 @@ const CreateBrand = () => {
     };
 
     return (
-        <div>
-            <h1>Criar Nova Marca</h1>
-            {error && <p style={{ color: "red" }}>Erro: {error}</p>}
+        <div class="container-fluid mt-4 px-5">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 class="text">
+                            Cadastrar Marca
+                        </h3>
+                    </div>
+                    <Card>
 
-            <form onSubmit={handleCreateBrand}>
-                <div>
-                    <label>Nome:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Nome da marca"
-                        value={newBrand.name}
-                        onChange={handleInputChange}
-                        required
-                    />
+                        <Card.Body>
+                            <form onSubmit={handleCreateBrand}>
+
+                                <label><strong>Nome</strong></label>
+                                <input className="form-control" type="text" name="name" placeholder="Nome da marca" value={newBrand.name} onChange={handleInputChange} required /><br />
+
+                                <label><strong>Descrição</strong></label>
+                                <textarea className="form-control" name="description" placeholder="Descrição da marca" value={newBrand.description} onChange={handleInputChange} required /><br />
+
+                                <Button type="submit">Criar</Button>
+                            </form>
+                        </Card.Body>
+                    </Card>
+                    <br />
+                    <Button href="/brands" variant="secondary">Cancelar e Voltar</Button>
                 </div>
-                <div>
-                    <label>Descrição:</label>
-                    <textarea
-                        name="description"
-                        placeholder="Descrição da marca"
-                        value={newBrand.description}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Criar</button>
-            </form>
+            </div>
         </div>
     );
 };
