@@ -6,7 +6,7 @@ const Index = () => {
             <div className="text-center">
                 <div className="page-header">
                     <h1 style={{ fontSize: '3.5em' }}>
-                        Seu estoque, na palma da mão!
+                        Seu estoque na palma da mão!
                     </h1>
                 </div>
                 <h2 style={{ fontSize: '1.5em' }}>
