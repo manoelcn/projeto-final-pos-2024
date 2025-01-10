@@ -25,6 +25,3 @@ class BrandRetriveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
-    def perform_destroy(self, instance):
-            instance.delete()
