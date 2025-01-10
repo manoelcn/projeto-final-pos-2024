@@ -67,7 +67,13 @@ const Brands = () => {
     };
 
     if (error) {
-        return <div className="container-fluid mt-4 px-5"><Empty description={'Viiixe! alguma coisa deu errado :('} /></div>;
+        return <div className="container-fluid mt-4 px-5">
+            <Empty description={'Viiixe! alguma coisa deu errado :('} />
+            <br />
+            <div className="text-center">
+                <Button href="/brands" variant="secondary">Voltar</Button>
+            </div>
+        </div>;
     }
 
     return (
